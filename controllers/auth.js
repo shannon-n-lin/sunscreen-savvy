@@ -16,10 +16,12 @@ const postSignup = (req, res) => {
   }
   if (req.body.password !== req.body.confirmPassword) {
     validationErrors.push({ msg: 'Passwords do not match' })
+    console.log('Passwords do not match')
   }
 
   // If there are any errors, flash messages
   if (validationErrors.length) {
+    console.log(validationErrors)
     req.flash('errors', validationErrors)
     return res.redirect('/signup')
   }
@@ -33,61 +35,31 @@ const postSignup = (req, res) => {
     icloud_lowercase: true,
   })
 
-  // Create new user in database
+  // Set up info for new user
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password
   })
 
-  User.findOne(
-    { $or: [{ email: req.body.email }, { username: req.body.username}] },
-    (err, existingUser) => {
-      if (err) {
-        return next(err)
-      }
-      // Check if username or email address already exists
-      if (existingUser) {
-        req.flash('errors', {
-          msg: 'An account with that email address or username already exists',
-        })
-        return res.redirect('/signup')
-      }
-      // Otherwise, save new user to database and log them in
-      user.save((err) => {
-        if (err) {
-          return next(err)
-        }
-        req.logIn(user, (err) => {
-          if (err) {
-            return next(err)
-          }
-          res.redirect('/profile')
-        })
-      })
+  async function checkUser() {
+    try {
+      // Check if username or email address already exists in db
+      let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
+      if (data) {
+        console.log('An account with that email address or username already exists')
+        req.flash('errors', { msg: 'An account with that email address or username already exists' })
+        return res.redirect('../signup')
+      } 
+      // Otherwise, create new user in database
+      await user.create()
+      // TODO: log in new user
+
+    } catch (err) {
+      console.log(err)
     }
-  )
-
-// User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
-//   .then((existingUser) => {
-//     if(existingUser) {
-//       req.flash('errors', {
-//         msg: 'An account with that email address or username already exists',
-//       })
-//       console.log('An account with that email address or username already exists')
-//       return res.redirect('/signup')
-//     }
-
-//     data.save((err) => {
-//       if (err) {
-//         return next(err)
-//       }
-//     })
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-
+  }
+  checkUser()
 }
 
 const getLogin = (req, res) => {
