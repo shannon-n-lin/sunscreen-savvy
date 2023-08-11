@@ -67,7 +67,7 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res, next) => {
-    const validationErrors = []
+  const validationErrors = []
   if (!validator.isEmail(req.body.email))
     validationErrors.push({ msg: 'Please enter a valid email address'})
   if (validator.isEmpty(req.body.password))
@@ -96,10 +96,20 @@ const postLogin = (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) return next(err)
+      console.log(`${req.body.email} is logged in`)
       req.flash('success', { msg: 'Welcome!' })
-      res.redirect(req.session.returnTo || '/profile')
+      // res.redirect(req.session.returnTo || '/profile')
+      res.redirect('/profile')
     })
   }) (req, res, next)
+}
+
+const logout = (req, res) => {
+  req.logout(function(err) { 
+    console.log('User has logged out')
+    if (err) {return next(err)}
+    res.redirect('/') 
+  })
 }
 
 module.exports = {
@@ -107,4 +117,5 @@ module.exports = {
   postSignup,
   getLogin,
   postLogin,
+  logout,
 }
