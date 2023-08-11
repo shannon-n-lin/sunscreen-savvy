@@ -51,8 +51,8 @@ const postSignup = (req, res) => {
         req.flash('errors', { msg: 'An account with that email address or username already exists' })
         return res.redirect('../signup')
       } 
-      // Otherwise, create new user in database
-      await user.create()
+      // Otherwise, save new user to database
+      await user.save()
       // TODO: log in new user
 
     } catch (err) {
