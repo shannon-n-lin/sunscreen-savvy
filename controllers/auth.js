@@ -9,13 +9,13 @@ const getSignup = (req, res) => {
 const postSignup = (req, res) => {
   const validationErrors = []
   if (!validator.isEmail(req.body.email)) {
-      validationErrors.push({ msg: 'Please enter a valid email address' })
+      validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.' })
   }
   if (!validator.isLength(req.body.password, { min: 8 })) {
-    validationErrors.push({ msg: 'Password must be at least 8 characters long' })
+    validationErrors.push({ msg: 'Please enter a password that is at least 8 characters long.' })
   }
   if (req.body.password !== req.body.confirmPassword) {
-    validationErrors.push({ msg: 'Passwords do not match' })
+    validationErrors.push({ msg: 'The passwords you entered do not match. Please try again.' })
     console.log('Passwords do not match')
   }
 
@@ -47,8 +47,8 @@ const postSignup = (req, res) => {
       // Check if username or email address already exists in db
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
-        console.log('An account with that email address or username already exists')
-        req.flash('errors', { msg: 'An account with that email address or username already exists' })
+        console.log('An account with that email address or username already exists.')
+        req.flash('errors', { msg: 'An account with that email address or username already exists.' })
         return res.redirect('../signup')
       } 
       // Otherwise, save new user to database
@@ -69,9 +69,9 @@ const getLogin = (req, res) => {
 const postLogin = (req, res, next) => {
   const validationErrors = []
   if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address'})
+    validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.'})
   if (validator.isEmpty(req.body.password))
-    validationErrors.push({ msg: 'Please enter a password'})
+    validationErrors.push({ msg: 'Please enter a password to log in.'})
 
   // If there are any errors, flash messages
   if (validationErrors.length) {
@@ -98,7 +98,6 @@ const postLogin = (req, res, next) => {
       if (err) return next(err)
       console.log(`${req.body.email} is logged in`)
       req.flash('success', { msg: 'Welcome!' })
-      // res.redirect(req.session.returnTo || '/profile')
       res.redirect('/profile')
     })
   }) (req, res, next)

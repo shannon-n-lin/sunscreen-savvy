@@ -6,11 +6,16 @@
   <title>Sunscreen Savvy</title>
 </head>
 <body>
-  <h1><a href='/'>Sunscreen Savvy</a></h1>
-  <p>Hello and welcome!</p>
-
-  <div><a href='/login'>Log In</a></div>
-  <div><a href='/signup'>Sign Up</a></div>
-  <div><a href='/logout'>Log Out</a></div>
+  <h1><a href="/">Sunscreen Savvy</a></h1>
+  <% if (!user) { %>
+    <p>Hello and welcome!</p>
+    <div><a href="/login">Log In</a></div>
+    <div><a href="/signup">Sign Up</a></div>
+  <% } %>
+  <% if (user) { %>
+    <p>Hi <%= user.username %>!</p>
+    <div><a href="/profile">Profile</a></div>
+    <div><a href="/logout">Log Out</a></div>
+  <% } %>
 </body>
 </html>

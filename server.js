@@ -41,6 +41,12 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Pass current user info to all routes
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user
+  next()
+})
+
 // Flash messages
 app.use(flash())
 
