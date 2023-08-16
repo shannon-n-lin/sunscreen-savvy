@@ -18,5 +18,4 @@ router.post('/login', authController.postLogin)
 router.get('/profile', ensureAuth, profileController.getProfile)
 router.post('/updateProfile', profileController.updateProfile)
 
-
 module.exports = router

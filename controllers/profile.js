@@ -1,7 +1,14 @@
-const User = require('../models/User')
+const Profile = require('../models/Profile')
 
-const getProfile = (req, res) => {
-  res.render('profile.ejs', { user: req.user })
+const getProfile = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ userId: req.user.id })
+    console.log(profile)
+    res.render('profile.ejs', { user: req.user, profile: profile })
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
 const updateProfile = async (req, res) => {
@@ -22,5 +29,5 @@ const updateProfile = async (req, res) => {
 
 module.exports = {
   getProfile,
-  updateProfile
+  updateProfile,
 }

@@ -1,6 +1,7 @@
 const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
+const Profile = require('../models/Profile')
 
 const getSignup = (req, res) => {
   res.render('signup.ejs')
@@ -64,6 +65,13 @@ const postSignup = (req, res) => {
         req.flash('success', { msg: 'Welcome!' })
         res.redirect('/profile')
       })
+      // Save new profile for user
+      const profile = new Profile({
+        userId: req.user.id,
+        skinType: 'none selected',
+        skinTone: 'none selected',
+      })
+      await profile.save()
     } catch (err) {
       console.log(err)
     }
