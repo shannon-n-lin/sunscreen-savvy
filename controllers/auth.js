@@ -44,9 +44,9 @@ const postSignup = (req, res) => {
     skinTone: req.body.skinTone,
   })
 
-  async function checkUser() {
+  async function saveUser() {
     try {
-      // Check if username or email address already exists in db
+      // Check if username or email address already exists in database
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
         console.log('An account with that email address or username already exists.')
@@ -55,17 +55,20 @@ const postSignup = (req, res) => {
       } 
       // Otherwise, save new user to database
       await user.save()
-      // TODO: fix redirect
-      console.log(`${req.body.email} account created`)
-      req.flash('success', { msg: 'Welcome!' })
-      res.redirect('/profile')
-      // TODO: log in new user
-
+      // Then log in new user and redirect to profile page
+      await req.logIn(user, (err) => {
+        if (err) {
+          return next(err)
+        }
+        console.log(`${req.body.email} account created`)
+        req.flash('success', { msg: 'Welcome!' })
+        res.redirect('/profile')
+      })
     } catch (err) {
       console.log(err)
     }
   }
-  checkUser()
+  saveUser()
 }
 
 const getLogin = (req, res) => {
