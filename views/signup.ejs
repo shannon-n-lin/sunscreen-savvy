@@ -17,10 +17,6 @@
 
   <form action="/signup" method="POST">
     <div>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required>
-    </div>
-    <div>
       <label for="email">Email address</label>
       <input type="email" id="email" name="email" required>
     </div>
@@ -31,6 +27,19 @@
     <div>
       <label for="confirmPassword">Confirm password</label>
       <input type="password" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <h4>Profile</h4>
+    <div>
+      <label for="username">First name</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+      <label for="skinType">Skin type</label>
+      <input type="text" id="skinType" name="skinType" required>
+    </div>
+    <div>
+      <label for="skinTone">Skin tone</label>
+      <input type="text" id="skinTone" name="skinTone" required>
     </div>
     <button type="submit">Sign up</button>
   </form>

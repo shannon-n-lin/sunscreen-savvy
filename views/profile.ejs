@@ -8,5 +8,23 @@
 <body>
   <h1><a href="/">Sunscreen Savvy</a></h1>
   <h2><%= user.username %>'s Profile</h2>
+  <section>
+    <div>Skin Type: <%= user.skinType %> </div>
+    <div>Skin Tone: <%= user.skinTone %> </div>
+  </section>
+  
+  <h3>Update Profile</h3>
+  <form action="/updateProfile" method="POST">
+    <div>
+      <label for="skinType">Skin Type</label>
+      <input type="text" id="skinType" name="skinType" required>
+    </div>
+    <div>
+      <label for="skinTone">Skin Tone</label>
+      <input type="text" id="skinTone" name="skinTone" required>
+    </div>
+    <button type="submit">Update</button>
+
+  </form>
 </body>
 </html>

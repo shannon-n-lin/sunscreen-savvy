@@ -39,7 +39,9 @@ const postSignup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    skinType: req.body.skinType,
+    skinTone: req.body.skinTone,
   })
 
   async function checkUser() {
@@ -53,6 +55,10 @@ const postSignup = (req, res) => {
       } 
       // Otherwise, save new user to database
       await user.save()
+      // TODO: fix redirect
+      console.log(`${req.body.email} account created`)
+      req.flash('success', { msg: 'Welcome!' })
+      res.redirect('/profile')
       // TODO: log in new user
 
     } catch (err) {
