@@ -1,11 +1,21 @@
 const Profile = require('../models/Profile')
 const SkinType = require('../models/SkinType')
+const SkinTone = require('../models/SkinTone')
 
 const getProfile = async (req, res) => {
   try {
+    // Find profile in database with current user's id
     const profile = await Profile.findOne({ userId: req.user.id })
+    // Find all skin types in database
     const skinTypes = await SkinType.find({})
-    res.render('profile.ejs', { user: req.user, profile: profile, skinTypes: skinTypes})
+    // Find all skin tones in database
+    const skinTones = await SkinTone.find({})
+    res.render('profile.ejs', { 
+      user: req.user, 
+      profile: profile, 
+      skinTypes: skinTypes,
+      skinTones: skinTones,
+    })
   }
   catch (err) {
     console.log(err)
@@ -14,6 +24,8 @@ const getProfile = async (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
+    // Find profile in database with current user's id
+    // Update fields with user input
     await Profile.findOneAndUpdate(
       { userId: req.user.id },
       {
@@ -34,6 +46,7 @@ const getSkinType = (req, res) => {
 
 const postSkinType = async (req, res) => {
   try {
+    // Save a new skin type
     const skintype = new SkinType({
       skinType: req.body.skintype,
     })

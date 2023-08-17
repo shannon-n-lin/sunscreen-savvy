@@ -8,31 +8,35 @@
 <body>
   <h1><a href="/">Sunscreen Savvy</a></h1>
   <h2><%= user.username %>'s Profile</h2>
-  <section>
-    <h3>User Data</h3>
-    <div>Skin Type: <%= user.skinType %> </div>
-    <div>Skin Tone: <%= user.skinTone %> </div>
-  </section>
-  <section>
-    <h3>Profile Data</h3>
-      <div>Skin Type: <%= profile.skinType %> </div>
-      <div>Skin Tone: <%= profile.skinTone %> </div>
-  </section>
-  <h3>Update Profile</h3>
   <form action="/updateProfile?_method=PUT" method="POST">
-    <div>
-      <label for="skinType">Skin Type</label>
-      <!-- <input type="text" id="skinType" name="skinType" required> -->
-      <select id="skinType" name="skinType" required>
+    <fieldset>
+      <legend>Skin Type</legend>
       <% skinTypes.forEach(type => { %>
-        <option value="<%= type.skinType %>"><%= type.skinType %></option>
+       <div>
+        <!-- If a skin type is the one saved on the profile, it will be selected by default -->
+        <% if (type.skinType === profile.skinType) { %>
+          <input type="radio" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required checked>
+        <% } else { %>
+          <input type="radio" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required>
+        <% } %>
+        <label for="<%= type.skinType %>"><%= type.skinType %></label>
+        </div>
       <% }) %>
-      </select>
-    </div>
-    <div>
-      <label for="skinTone">Skin Tone</label>
-      <input type="text" id="skinTone" name="skinTone" required>
-    </div>
+    </fieldset>
+    <fieldset>
+      <legend>Skin Tone</legend>
+      <% skinTones.forEach(tone => { %>
+       <div>
+        <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
+        <% if (tone.skinTone === profile.skinTone) { %>
+          <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required checked>
+        <% } else { %>
+          <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required>
+        <% } %>
+        <label for="<%= tone.skinTone %>"><%= tone.skinTone %></label>
+        </div>
+      <% }) %>
+    </fieldset>
     <button type="submit">Update</button>
 
   </form>

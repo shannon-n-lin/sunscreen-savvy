@@ -6,13 +6,11 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  skinType: [{ 
+  skinType: { 
     type: String, 
-    enum: ['oily', 'dry', 'normal', 'combination', 'none selected'],
-  }],
+  },
   skinTone: {
     type: String,
-    enum: ['very light', 'light', 'medium-light', 'medium-deep', 'deep', 'very deep', 'none selected'],
   },
 })
 

@@ -11,12 +11,6 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   password: String,
-  skinType: {
-    type: String,
-  },
-  skinTone: {
-    type: String,
-  },
 })
 
 // Password hashing
