@@ -37,6 +37,20 @@
         </div>
       <% }) %>
     </fieldset>
+    <fieldset>
+      <legend>Skin Concerns</legend>
+      <% skinConcerns.forEach(concern => { %>
+       <div>
+        <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
+        <% if (profile.skinConcerns.includes(concern.skinConcern)) { %>
+          <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>" checked>
+        <% } else { %>
+          <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>">
+        <% } %>
+        <label for="<%= concern.skinConcern %>"><%= concern.skinConcern %></label>
+        </div>
+      <% }) %>
+    </fieldset>
     <button type="submit">Update</button>
 
   </form>

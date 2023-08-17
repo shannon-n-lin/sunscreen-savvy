@@ -12,6 +12,9 @@ const ProfileSchema = new mongoose.Schema({
   skinTone: {
     type: String,
   },
+  skinConcerns: {
+    type: Array,
+  }
 })
 
 module.exports = mongoose.model('Profile', ProfileSchema)

@@ -41,8 +41,6 @@ const postSignup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-    skinType: req.body.skinType,
-    skinTone: req.body.skinTone,
   })
 
   async function saveUser() {
@@ -70,6 +68,7 @@ const postSignup = (req, res) => {
         userId: req.user.id,
         skinType: 'none selected',
         skinTone: 'none selected',
+        skinConcern: 'none selected',
       })
       await profile.save()
     } catch (err) {
