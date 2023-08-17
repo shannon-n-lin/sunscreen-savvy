@@ -16,6 +16,9 @@ router.post('/signup', authController.postSignup)
 router.post('/login', authController.postLogin)
 
 router.get('/profile', ensureAuth, profileController.getProfile)
-router.post('/updateProfile', profileController.updateProfile)
+router.put('/updateProfile', profileController.updateProfile)
+
+router.get('/skintype', profileController.getSkinType)
+router.post('/skintype', profileController.postSkinType)
 
 module.exports = router

@@ -18,12 +18,16 @@
       <div>Skin Type: <%= profile.skinType %> </div>
       <div>Skin Tone: <%= profile.skinTone %> </div>
   </section>
-  
   <h3>Update Profile</h3>
-  <form action="/updateProfile" method="POST">
+  <form action="/updateProfile?_method=PUT" method="POST">
     <div>
       <label for="skinType">Skin Type</label>
-      <input type="text" id="skinType" name="skinType" required>
+      <!-- <input type="text" id="skinType" name="skinType" required> -->
+      <select id="skinType" name="skinType" required>
+      <% skinTypes.forEach(type => { %>
+        <option value="<%= type.skinType %>"><%= type.skinType %></option>
+      <% }) %>
+      </select>
     </div>
     <div>
       <label for="skinTone">Skin Tone</label>

@@ -6,6 +6,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const flash = require('express-flash')
 const logger = require('morgan')
+const methodOverride = require('method-override')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 
@@ -26,6 +27,10 @@ app.use(express.json())
 
 // Logging
 app.use(logger('dev'))
+
+// Method Override
+// Use post requests from forms to make put and delete requests
+app.use(methodOverride('_method'))
 
 // Sessions to keep users logged in
 app.use(
