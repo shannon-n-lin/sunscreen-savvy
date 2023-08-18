@@ -26,7 +26,7 @@
     <fieldset>
       <legend>Skin Tone</legend>
       <% skinTones.forEach(tone => { %>
-       <div>
+      <div>
         <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
         <% if (tone.skinTone === profile.skinTone) { %>
           <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required checked>
@@ -34,13 +34,13 @@
           <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required>
         <% } %>
         <label for="<%= tone.skinTone %>"><%= tone.skinTone %></label>
-        </div>
+      </div>
       <% }) %>
     </fieldset>
     <fieldset>
       <legend>Skin Concerns</legend>
       <% skinConcerns.forEach(concern => { %>
-       <div>
+      <div>
         <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
         <% if (profile.skinConcerns.includes(concern.skinConcern)) { %>
           <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>" checked>
@@ -48,7 +48,7 @@
           <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>">
         <% } %>
         <label for="<%= concern.skinConcern %>"><%= concern.skinConcern %></label>
-        </div>
+      </div>
       <% }) %>
     </fieldset>
     <button type="submit">Update</button>

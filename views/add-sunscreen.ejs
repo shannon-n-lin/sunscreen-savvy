@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunscreen Savvy</title>
+</head>
+<body>
+  <h1><a href='/'>Sunscreen Savvy</a></h1>
+  <h2>Add a sunscreen</h2>
+
+  <% if (locals.messages.errors) { %>
+    <% messages.errors.forEach( error => { %>
+      <div><%= error.msg %></div>
+    <% }) %>
+  <% } %>
+
+  <form action="/add-sunscreen" method="POST">
+    <div class="formControl">
+      <label for="brand">Brand:</label>
+      <input type="text" id="brand" name="brand" required>
+    </div>
+    <div class="formControl">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div class="formControl">
+      <label for="spf">SPF:</label>
+      <input type="text" id="spf" name="spf" required>
+    </div>
+    <fieldset>
+      <legend>Form:</legend>
+      <ul>
+        <li>
+          <input type="radio" id="form_lotion" name="form" value="lotion">
+          <label for="lotion">Lotion</label>
+        </li>
+        <li>
+          <input type="radio" id="form_gel" name="form" value="gel">
+          <label for="gel">Gel</label>
+        </li>
+        <li>
+          <input type="radio" id="form_stick" name="form" value="stick">
+          <label for="stick">Stick</label>
+        </li>
+        <li>
+          <input type="radio" id="form_spray" name="form" value="spray">
+          <label for="spray">Spray</label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <legend>Type:</legend>
+      <ul>
+        <li>
+          <input type="radio" id="type_chemical" name="type" value="chemical">
+          <label for="chemical">Chemical</label>
+        </li>
+        <li>
+          <input type="radio" id="type_physical" name="type" value="physical">
+          <label for="physical">Physical</label>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <legend>Finish:</legend>
+      <ul>
+        <li>
+          <input type="radio" id="finish_dewy" name="finish" value="dewy">
+          <label for="dewy">Dewy</label>
+        </li>
+        <li>
+          <input type="radio" id="finish_matte" name="finish" value="matte">
+          <label for="matte">Matte</label>
+        </li>
+      </ul>
+    </fieldset>
+    <div class="formControl">
+      <label for="waterResistant">Water Resistant:</label>
+      <input type="checkbox" id="waterResistant" name="waterResistant" value="true">
+    </div>
+    <div class="formControl">
+      <label for="broadSpectrum">Broad Spectrum:</label>
+      <input type="checkbox" id="broadSpectrum" name="broadSpectrum" value="true">
+    </div>
+    <div class="formControl">
+      <label for="pricePerOz">Price Per Ounce:</label>
+      <input type="text" id="pricePerOz" name="pricePerOz" >
+    </div>
+    <div class="formControl">
+      <label for="ingredients">Ingredients:</label>
+      <input type="text" id="ingredients" name="ingredients" >
+    </div>
+    <div class="formControl">
+      <label for="imageURL">Image Link:</label>
+      <input type="url" id="imageURL" name="imageURL" >
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

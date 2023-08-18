@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const SkinType = require('./SkinType')
 
 const ProfileSchema = new mongoose.Schema({
   userId: {
