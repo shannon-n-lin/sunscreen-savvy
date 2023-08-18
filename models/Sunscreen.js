@@ -31,7 +31,7 @@ const SunscreenSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Decimal128,
   },
   ingredients: {
-    type: Array,
+    type: String,
   },
 })
 

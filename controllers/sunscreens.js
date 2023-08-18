@@ -14,29 +14,31 @@ const getAddSunscreen = async (req, res) => {
 
 const postAddSunscreen = async (req, res) => {
   try {
-    let brand = await Brand.findOne({ brand: req.user.brand })
+    // Check if brand exists in database
+    let brand = await Brand.findOne({ name: req.body.brand })
+    // If brand does not already exist, create a new brand
     if (!brand) {
-      brand = new Brand({
-        brand: req.user.brand,
+      await Brand.create({
+        name: req.body.brand,
       })
-      await brand.save()
+      console.log(`Brand '${req.body.brand}' added`)
+      // Reassign brand variable now that it exists in database
+      brand = await Brand.findOne({ name: req.body.brand })
     }
-    let ingredients = req.body.ingredients.split(', ')
-    console.log(typeof ingredients)
-    await Sunscreen.create(
-      {
-        name: req.body.name,
-        brand: brand._id,
-        spf: req.body.spf,
-        type: req.body.type,
-        form: req.body.form,
-        finish: req.body.finish,
-        waterResistant: req.body.waterResistant,
-        broadSpectrum: req.body.broadSpectrum,
-        pricePerOz: req.body.pricePerOz,
-        $set: { ingredients: ingredients }
-      }
-    )
+    
+    // Create new sunscreen in database
+    await Sunscreen.create({
+      name: req.body.name,
+      brand: brand._id,
+      spf: req.body.spf,
+      type: req.body.type,
+      form: req.body.form,
+      finish: req.body.finish,
+      waterResistant: req.body.waterResistant,
+      broadSpectrum: req.body.broadSpectrum,
+      pricePerOz: req.body.pricePerOz,
+      ingredients: req.body.ingredients,
+    })
     console.log('Sunscreen added')
     res.redirect('add-sunscreen')
   } catch (err) {
