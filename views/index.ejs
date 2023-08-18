@@ -6,17 +6,47 @@
   <title>Sunscreen Savvy</title>
 </head>
 <body>
-  <h1><a href="/">Sunscreen Savvy</a></h1>
-  <% if (!user) { %>
-    <p>Hello and welcome!</p>
-    <div><a href="/login">Log In</a></div>
-    <div><a href="/signup">Sign Up</a></div>
-  <% } %>
-  <% if (user) { %>
-    <p>Hi <%= user.username %>!</p>
-    <div><a href="/profile">Profile</a></div>
-    <div><a href="/add-sunscreen">Add a Sunscreen</a></div>
-    <div><a href="/logout">Log Out</a></div>
-  <% } %>
+  <section>
+    <h1><a href="/">Sunscreen Savvy</a></h1>
+    <% if (!user) { %>
+      <p>Hello and welcome!</p>
+      <div><a href="/login">Log In</a></div>
+      <div><a href="/signup">Sign Up</a></div>
+    <% } %>
+    <% if (user) { %>
+      <p>Hi <%= user.username %>!</p>
+      <div><a href="/profile">Profile</a></div>
+      <div><a href="/add-sunscreen">Add a Sunscreen</a></div>
+      <div><a href="/logout">Log Out</a></div>
+    <% } %>
+  </section>
+
+  <section class="allSunscreens">
+    <h2>All Sunscreens</h2>
+    <ul class="sunscreenList">
+    <% sunscreens.forEach(el => { %>
+      <li class="sunscreen"> 
+        <section>
+          <h3><%= el.brand %></h3>
+          <h3><%= el.name %></h3>
+          <ul>
+            <li><%= `SPF: ${el.spf}` %></li>
+            <li><%= `Form: ${el.form}` %></li>
+            <li><%= `Type: ${el.type}` %></li>
+            <li><%= `Finish: ${el.finish}` %></li>
+            <li><%= `Water resistant: ${el.waterResistant}` %></li>
+            <li><%= `Broad spectrum: ${el.broadSpectrum}` %></li>
+            <li><%= `Price per ounce: ${el.pricePerOz}` %></li>
+            <li><%= `Ingredients: ${el.ingredients}` %></li>
+          </ul>
+        </section>
+        <section>
+          <img src= <%= el.image %> >
+        </section>
+      </li>
+    <% }) %>
+    <ul>
+  </section>
+
 </body>
 </html>

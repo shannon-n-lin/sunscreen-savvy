@@ -5,8 +5,7 @@ const SunscreenSchema = new mongoose.Schema({
     type: String, 
   },
   brand: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Brand',
+    type: String,
   },
   spf: {
     type: Number,
@@ -23,9 +22,11 @@ const SunscreenSchema = new mongoose.Schema({
   },
   waterResistant: {
     type: Boolean,
+    default: false,
   },
   broadSpectrum: {
     type: Boolean,
+    default: false,
   },
   pricePerOz: {
     type: mongoose.Schema.Types.Decimal128,

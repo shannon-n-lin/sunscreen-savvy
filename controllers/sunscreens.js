@@ -25,11 +25,11 @@ const postAddSunscreen = async (req, res) => {
       // Reassign brand variable now that it exists in database
       brand = await Brand.findOne({ name: req.body.brand })
     }
-    
+
     // Create new sunscreen in database
     await Sunscreen.create({
       name: req.body.name,
-      brand: brand._id,
+      brand: brand.name,
       spf: req.body.spf,
       type: req.body.type,
       form: req.body.form,
