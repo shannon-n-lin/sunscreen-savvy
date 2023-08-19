@@ -22,4 +22,6 @@ router.put('/updateProfile', profileController.updateProfile)
 router.get('/add-sunscreen', ensureAuth, sunscreensController.getAddSunscreen)
 router.post('/add-sunscreen', sunscreensController.postAddSunscreen)
 
+router.get('/sunscreen/:id', sunscreensController.getSunscreen)
+
 module.exports = router

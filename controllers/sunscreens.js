@@ -46,7 +46,17 @@ const postAddSunscreen = async (req, res) => {
   }
 }
 
+const getSunscreen = async (req, res) => {
+  try {
+    const sunscreen = await Sunscreen.findById(req.params.id)
+    res.render('sunscreen.ejs', { sunscreen: sunscreen })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 module.exports = {
   getAddSunscreen,
   postAddSunscreen,
+  getSunscreen,
 }

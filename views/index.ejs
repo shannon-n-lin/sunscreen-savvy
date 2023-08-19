@@ -28,17 +28,11 @@
       <li class="sunscreen"> 
         <section>
           <h3><%= el.brand %></h3>
-          <h3><%= el.name %></h3>
-          <ul>
-            <li><%= `SPF: ${el.spf}` %></li>
-            <li><%= `Form: ${el.form}` %></li>
-            <li><%= `Type: ${el.type}` %></li>
-            <li><%= `Finish: ${el.finish}` %></li>
-            <li><%= `Water resistant: ${el.waterResistant}` %></li>
-            <li><%= `Broad spectrum: ${el.broadSpectrum}` %></li>
-            <li><%= `Price per ounce: ${el.pricePerOz}` %></li>
-            <li><%= `Ingredients: ${el.ingredients}` %></li>
-          </ul>
+          <h3>
+            <a href='/sunscreen/<%= el._id %>'>
+              <%= el.name %>
+            </a>
+          </h3>
         </section>
         <section>
           <img src= <%= el.image %> >
