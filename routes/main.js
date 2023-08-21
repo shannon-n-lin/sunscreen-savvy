@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const upload = require('../middleware/multer')
 const homeController = require('../controllers/home')
 const authController = require('../controllers/auth')
 const profileController = require('../controllers/profile')
@@ -19,8 +20,8 @@ router.post('/login', authController.postLogin)
 router.get('/profile', ensureAuth, profileController.getProfile)
 router.put('/updateProfile', profileController.updateProfile)
 
-router.get('/add-sunscreen', ensureAuth, sunscreensController.getAddSunscreen)
-router.post('/add-sunscreen', sunscreensController.postAddSunscreen)
+router.get('/addSunscreen', ensureAuth, sunscreensController.getAddSunscreen)
+router.post('/addSunscreen', upload.single('file'), sunscreensController.postAddSunscreen)
 
 router.get('/sunscreen/:id', sunscreensController.getSunscreen)
 

@@ -34,6 +34,9 @@ const SunscreenSchema = new mongoose.Schema({
   ingredients: {
     type: String,
   },
+  image: {
+    type: String,
+  }
 })
 
 module.exports = mongoose.model('Sunscreen', SunscreenSchema)

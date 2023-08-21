@@ -1,9 +1,10 @@
 const Sunscreen = require('../models/Sunscreen')
 const Brand = require('../models/Brand')
+const cloudinary = require('../middleware/cloudinary')
 
 const getAddSunscreen = async (req, res) => {
   try {
-    res.render('add-sunscreen.ejs', {
+    res.render('addSunscreen.ejs', {
 
     })
   }
@@ -26,6 +27,10 @@ const postAddSunscreen = async (req, res) => {
       brand = await Brand.findOne({ name: req.body.brand })
     }
 
+    // Upload image to Cloudinary
+    // const result = await cloudinary.uploader.upload(req.image.path)
+    const result = await cloudinary.uploader.upload(req.file.path);
+
     // Create new sunscreen in database
     await Sunscreen.create({
       name: req.body.name,
@@ -38,9 +43,11 @@ const postAddSunscreen = async (req, res) => {
       broadSpectrum: req.body.broadSpectrum,
       pricePerOz: req.body.pricePerOz,
       ingredients: req.body.ingredients,
+      image: result.secure_url,
+      cloudinaryId: result.public_id,
     })
     console.log('Sunscreen added')
-    res.redirect('add-sunscreen')
+    res.redirect('addSunscreen')
   } catch (err) {
     console.log(err)
   }

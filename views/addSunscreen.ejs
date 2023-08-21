@@ -15,7 +15,7 @@
     <% }) %>
   <% } %>
 
-  <form action="/add-sunscreen" method="POST">
+  <form action="/addSunscreen" enctype="multipart/form-data" method="POST">
     <div class="formControl">
       <label for="brand">Brand:</label>
       <input type="text" id="brand" name="brand" required>
@@ -66,19 +66,6 @@
         </li>
       </ul>
     </fieldset>
-    <fieldset>
-      <legend>Finish:</legend>
-      <ul>
-        <li>
-          <input type="radio" id="finish_dewy" name="finish" value="dewy">
-          <label for="dewy">Dewy</label>
-        </li>
-        <li>
-          <input type="radio" id="finish_matte" name="finish" value="matte">
-          <label for="matte">Matte</label>
-        </li>
-      </ul>
-    </fieldset>
     <div class="formControl">
       <label for="waterResistant">Water Resistant:</label>
       <input type="checkbox" id="waterResistant" name="waterResistant" value="true">
@@ -96,10 +83,10 @@
       <input type="text" id="ingredients" name="ingredients" >
     </div>
     <div class="formControl">
-      <label for="imageURL">Image Link:</label>
-      <input type="url" id="imageURL" name="imageURL" >
+      <label for="imgUpload">Image</label>
+      <input type="file" id="imgUpload" name="file">
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" value="Upload">Submit</button>
   </form>
 
 </body>
