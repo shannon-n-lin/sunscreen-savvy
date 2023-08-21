@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunscreen Savvy</title>
-</head>
-<body>
-  <h1><a href="/">Sunscreen Savvy</a></h1>
+<%- include('partials/header') -%>
+
+<main class="container">
   <ul>  
     <li class="sunscreen"> 
       <section>
         <h3><%= sunscreen.brand %></h3>
         <h3><%= sunscreen.name %></h3>
         <ul>
-          <li><%= `SPF: ${sunscreen.spf}` %></li>
           <li><%= `SPF: ${sunscreen.spf}` %></li>
           <li><%= `Form: ${sunscreen.form}` %></li>
           <li><%= `Type: ${sunscreen.type}` %></li>
@@ -29,5 +22,6 @@
       </section>
     </li>
   <ul>
-</body>
-</html>
+</main>
+
+<%- include('partials/footer') -%>

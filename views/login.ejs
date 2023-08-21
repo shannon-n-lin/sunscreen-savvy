@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunscreen Savvy</title>
-</head>
-<body>
-  <h1><a href='/'>Sunscreen Savvy</a></h1>
+<%- include('partials/header') -%>
+<main class="container">
   <h2>Log In</h2>
 
   <% if (locals.messages.errors) { %>
@@ -17,15 +10,16 @@
 
   <form action="/login" method="POST">
     <div>
-      <label for="email">Email address</label>
-      <input type="email" id="email" name="email" required>
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
     </div>
     <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Log in</button>
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>  
+    <button type="submit" class="btn btn-primary my-3">Log in</button>
   </form>
   <div><a href="/signup">Sign up for an account</a></div>
-</body>
-</html>
+</main>
+
+<%- include('partials/footer') -%>

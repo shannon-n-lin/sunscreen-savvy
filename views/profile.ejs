@@ -1,58 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunscreen Savvy</title>
-</head>
-<body>
-  <h1><a href="/">Sunscreen Savvy</a></h1>
+<%- include('partials/header') -%>
+
+<main class="container">
   <h2><%= user.username %>'s Profile</h2>
   <form action="/updateProfile?_method=PUT" method="POST">
     <fieldset>
       <legend>Skin Type</legend>
       <% skinTypes.forEach(type => { %>
-       <div>
+       <div class="form-check">
         <!-- If a skin type is the one saved on the profile, it will be selected by default -->
         <% if (type.skinType === profile.skinType) { %>
-          <input type="radio" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required checked>
+          <input type="radio" class="form-check-input" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required checked>
         <% } else { %>
-          <input type="radio" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required>
+          <input type="radio" class="form-check-input" name="skinType" id="<%= type.skinType %>" value="<%= type.skinType %>" required>
         <% } %>
-        <label for="<%= type.skinType %>"><%= type.skinType %></label>
+        <label for="<%= type.skinType %>" class="form-check-label"><%= type.skinType %></label>
         </div>
       <% }) %>
     </fieldset>
     <fieldset>
       <legend>Skin Tone</legend>
       <% skinTones.forEach(tone => { %>
-      <div>
+      <div class="form-check">
         <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
         <% if (tone.skinTone === profile.skinTone) { %>
-          <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required checked>
+          <input type="radio" class="form-check-input" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required checked>
         <% } else { %>
-          <input type="radio" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required>
+          <input type="radio" class="form-check-input" name="skinTone" id="<%= tone.skinTone %>" value="<%= tone.skinTone %>" required>
         <% } %>
-        <label for="<%= tone.skinTone %>"><%= tone.skinTone %></label>
+        <label for="<%= tone.skinTone %>" class="form-check-label"><%= tone.skinTone %></label>
       </div>
       <% }) %>
     </fieldset>
     <fieldset>
       <legend>Skin Concerns</legend>
       <% skinConcerns.forEach(concern => { %>
-      <div>
+      <div class="form-check">
         <!-- If a skin tone is the one saved on the profile, it will be selected by default -->
         <% if (profile.skinConcerns.includes(concern.skinConcern)) { %>
-          <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>" checked>
+          <input type="checkbox" class="form-check-input" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>" checked>
         <% } else { %>
-          <input type="checkbox" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>">
+          <input type="checkbox" class="form-check-input" name="skinConcerns" id="<%= concern.skinConcern %>" value="<%= concern.skinConcern %>">
         <% } %>
-        <label for="<%= concern.skinConcern %>"><%= concern.skinConcern %></label>
+        <label for="<%= concern.skinConcern %>" class="form-check-label"><%= concern.skinConcern %></label>
       </div>
       <% }) %>
     </fieldset>
-    <button type="submit">Update</button>
+    <button type="submit" class="btn btn-primary mt-3">Update</button>
 
   </form>
-</body>
-</html>
+</main>
+
+<%- include('partials/footer') -%>

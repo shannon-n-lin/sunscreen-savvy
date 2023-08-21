@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunscreen Savvy</title>
-</head>
-<body>
-  <h1><a href='/'>Sunscreen Savvy</a></h1>
+<%- include('partials/header') -%>
+
+<main class="container">
   <h2>Add a sunscreen</h2>
 
   <% if (locals.messages.errors) { %>
@@ -16,78 +10,75 @@
   <% } %>
 
   <form action="/addSunscreen" enctype="multipart/form-data" method="POST">
-    <div class="formControl">
-      <label for="brand">Brand:</label>
-      <input type="text" id="brand" name="brand" required>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand:</label>
+      <input type="text" class="form-control" id="brand" name="brand" required>
     </div>
-    <div class="formControl">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required>
     </div>
-    <div class="formControl">
-      <label for="spf">SPF:</label>
-      <input type="text" id="spf" name="spf" required>
+    <div class="mb-3">
+      <label for="spf" class="form-label">SPF:</label>
+      <input type="text" class="form-control" id="spf" name="spf" required>
     </div>
     <fieldset>
       <legend>Form:</legend>
-      <ul>
-        <li>
-          <input type="radio" id="form_lotion" name="form" value="lotion">
-          <label for="lotion">Lotion</label>
-        </li>
-        <li>
-          <input type="radio" id="form_gel" name="form" value="gel">
-          <label for="gel">Gel</label>
-        </li>
-        <li>
-          <input type="radio" id="form_stick" name="form" value="stick">
-          <label for="stick">Stick</label>
-        </li>
-        <li>
-          <input type="radio" id="form_spray" name="form" value="spray">
-          <label for="spray">Spray</label>
-        </li>
-      </ul>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="form_lotion" name="form" value="lotion">
+        <label for="lotion" class="form-check-label">Lotion</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="form_gel" name="form" value="gel">
+        <label for="gel" class="form-check-label">Gel</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="form_stick" name="form" value="stick">
+        <label for="stick" class="form-check-label">Stick</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="form_spray" name="form" value="spray">
+        <label for="spray" class="form-check-label">Spray</label>
+      </div>
     </fieldset>
     <fieldset>
       <legend>Type:</legend>
-      <ul>
-        <li>
-          <input type="radio" id="type_chemical" name="type" value="chemical">
-          <label for="chemical">Chemical</label>
-        </li>
-        <li>
-          <input type="radio" id="type_physical" name="type" value="physical">
-          <label for="physical">Physical</label>
-        </li>
-        <li>
-          <input type="radio" id="type_hybrid" name="type" value="hybrid">
-          <label for="hybrid">Hybrid</label>
-        </li>
-      </ul>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="type_chemical" name="type" value="chemical">
+        <label for="chemical" class="form-check-label">Chemical</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="type_physical" name="type" value="physical">
+        <label for="physical" class="form-check-label">Physical</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="type_hybrid" name="type" value="hybrid">
+        <label for="hybrid" class="form-check-label">Hybrid</label>
+      </div>
     </fieldset>
-    <div class="formControl">
-      <label for="waterResistant">Water Resistant:</label>
-      <input type="checkbox" id="waterResistant" name="waterResistant" value="true">
+    <div class="form-check form-switch my-3">
+      <label for="waterResistant" class="form-check-label">Water Resistant</label>
+      <input class="form-check-input" type="checkbox" role="switch" id="waterResistant" name="waterResistant" value="true">
     </div>
-    <div class="formControl">
-      <label for="broadSpectrum">Broad Spectrum:</label>
-      <input type="checkbox" id="broadSpectrum" name="broadSpectrum" value="true">
+    <div class="form-check form-switch mb-3">
+      <label for="broadSpectrum" class="form-check-label">Broad Spectrum</label>
+      <input class="form-check-input" type="checkbox" role="switch" id="broadSpectrum" name="broadSpectrum" value="true">
     </div>
-    <div class="formControl">
+    <div class="mb-3">
       <label for="pricePerOz">Price Per Ounce:</label>
       <input type="text" id="pricePerOz" name="pricePerOz" >
     </div>
-    <div class="formControl">
+    <div class="mb-3">
       <label for="ingredients">Ingredients:</label>
       <input type="text" id="ingredients" name="ingredients" >
     </div>
-    <div class="formControl">
+    <div class="mb-3">
       <label for="imgUpload">Image</label>
       <input type="file" id="imgUpload" name="file">
     </div>
-    <button type="submit" value="Upload">Submit</button>
+    <button type="submit" value="Upload" class="btn btn-primary mt-2">Submit</button>
   </form>
 
-</body>
-</html>
+</main>
+
+<%- include('partials/footer') -%>

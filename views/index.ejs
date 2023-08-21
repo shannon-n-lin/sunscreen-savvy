@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunscreen Savvy</title>
-</head>
-<body>
-  <section>
-    <h1><a href="/">Sunscreen Savvy</a></h1>
+<%- include('partials/header') -%>
+
+<main>
+  <section class="container p-5 text-center">
     <% if (!user) { %>
       <p>Hello and welcome!</p>
-      <div><a href="/login">Log In</a></div>
-      <div><a href="/signup">Sign Up</a></div>
+      <a href="/login"><button type="button" class="btn btn-primary">Log In</button></a>
+      <a href="/signup"><button type="button" class="btn btn-secondary">Sign Up</button></a>
     <% } %>
     <% if (user) { %>
       <p>Hi <%= user.username %>!</p>
@@ -21,26 +15,18 @@
     <% } %>
   </section>
 
-  <section class="allSunscreens">
+  <section class="container p-5">
     <h2>All Sunscreens</h2>
-    <ul class="sunscreenList">
+    <ul class="list-group">
     <% sunscreens.forEach(el => { %>
-      <li class="sunscreen"> 
-        <section>
-          <h3><%= el.brand %></h3>
-          <h3>
-            <a href='/sunscreen/<%= el._id %>'>
-              <%= el.name %>
-            </a>
-          </h3>
-        </section>
-        <section>
-          <img src= <%= el.image %> >
-        </section>
+      <li class="list-group-item"> 
+        <h5><%= el.brand %></h5>
+        <h3><a href='/sunscreen/<%= el._id %>'><%= el.name %></a></h3>
+        <img src= <%= el.image %> >
       </li>
     <% }) %>
     <ul>
   </section>
+</main>
 
-</body>
-</html>
+<%- include('partials/footer') -%>
