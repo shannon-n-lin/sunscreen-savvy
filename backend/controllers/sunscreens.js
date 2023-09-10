@@ -62,8 +62,18 @@ const getSunscreen = async (req, res) => {
   }
 }
 
+const getAllSunscreens = async (req, res) => {
+  try {
+    const sunscreens = await Sunscreen.find({})
+    return res.json(sunscreens)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 module.exports = {
   getAddSunscreen,
   postAddSunscreen,
   getSunscreen,
+  getAllSunscreens,
 }

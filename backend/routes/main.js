@@ -24,5 +24,6 @@ router.get('/addSunscreen', ensureAuth, sunscreensController.getAddSunscreen)
 router.post('/addSunscreen', upload.single('file'), sunscreensController.postAddSunscreen)
 
 router.get('/sunscreen/:id', sunscreensController.getSunscreen)
+router.get('/sunscreens', sunscreensController.getAllSunscreens)
 
 module.exports = router

@@ -9,6 +9,7 @@ const logger = require('morgan')
 const methodOverride = require('method-override')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
+const cors = require('cors')
 
 // Use environment variables from .env in config folder
 require('dotenv').config({ path: './config/.env' })
@@ -24,6 +25,9 @@ app.set('view-engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+// CORS enabling middleware
+app.use(cors());
 
 // Logging
 app.use(logger('dev'))
@@ -57,7 +61,7 @@ app.use(flash())
 
 // Routes
 app.use('/', mainRoutes)
-
+ 
 // Use PORT from .env
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}.`)
