@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Hero from './components/Hero'
 import Sunscreens from './components/Sunscreens'
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <>
       <Navbar />
+      <Hero />
       
       <Routes>
         <Route path='/' element = {

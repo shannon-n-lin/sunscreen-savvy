@@ -5,18 +5,29 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      // fontFamily: {'mulish': ['Mulish', 'sans-serif']},
-    },
+    extend: {},
     colors: {
-      'dark-orange': '#fe8116',
-      'lt-orange': '#ffa810',
-      'blue': '#c1d3d3',
+      'off-white': '#fffefa',
       'yellow': '#ffcf07',
-      'off-white': '#f2eee2',
-      'green': '#656e33',
+      'lt-orange': '#ffa810',
+      'dark-orange': '#fe8116',
+      'lt-blue': '#dbe8ee',
+      'med-blue': '#a9c1ce',
+      'green': '#788851',
     },
-
+    fontFamily: {
+      'sans': ['Mulish', 'ui-sans-serif', 'system-ui',],
+    },
+    fontWeight: {
+      extralight: '200',
+      light: '300',
+      regular: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
+      black: '900',
+    }
   },
   plugins: [],
 }
