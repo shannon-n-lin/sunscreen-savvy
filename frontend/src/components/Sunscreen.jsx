@@ -1,18 +1,29 @@
 const Sunscreen = ({ sunscreen }) => {
+  const price = sunscreen.pricePerOz.$numberDecimal
+  
   return (
-    <div>
-      <div class="max-w-md my-8 mx-auto bg-lt-blue rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        <div class="md:flex">
-          {/* <div class="md:shrink-0">
-            <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/building.jpg" alt="Modern building architecture"/>
-          </div> */}
-          <div class="p-8">
-            <div class="uppercase tracking-wide text-sm font-semibold">{sunscreen.brand}</div>
-            <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{sunscreen.name}</a>
-            <p class="mt-2 text-slate-500">Looking to take your team away on a retreat to enjoy awesome food and take in some sunshine? We have a list of places to do just that.</p>
+    <div className=''>
+      <div className='max-w-md my-8 mx-auto border-[1px] border-lt-blue rounded-xl shadow-md overflow-hidden md:max-w-2xl'>
+        <div className='md:flex'>
+          <div className='md:shrink-0'>
+            <img className='h-48 w-full p-2 object-cover md:h-full md:w-48' src={sunscreen.image} alt={`Packaging of ${sunscreen.name}`}/>
+          </div>
+          <div className='p-8'>
+            <div className='uppercase tracking-wide text-sm font-semibold hover:underline'>{sunscreen.brand}</div>
+            <a href='#' className='block mt-1 text-lg/tight font-medium hover:underline'>{sunscreen.name}</a>
+            <ul>
+              <li className='mt-2'>Form: {sunscreen.form}</li>
+              <li className='mt-2'>Type: {sunscreen.type}</li>
+              <li className='mt-2'>SPF: {sunscreen.spf}</li>
+              <li className='mt-2'>Price: {price < 5 ? '$' :
+                                       price < 10 ? '$$' : 
+                                       price < 15 ? '$$$' : 
+                                       price < 25 ? '$$$$' : '$$$$$'}
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </div>    
     </div>
   )
 }
