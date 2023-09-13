@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {},
     colors: {
+      transparent: 'transparent',
       'off-white': '#fffefa',
       'yellow': '#ffbf00',
       'lt-orange': '#ffa810',
@@ -14,6 +15,8 @@ export default {
       'lt-blue': '#dbe8ee',
       'med-blue': '#a9c1ce',
       'green': '#788851',
+      'lt-gray': '#e3e3e3',
+      'med-gray':'#bbbbbb',
     },
     fontFamily: {
       'sans': ['Mulish', 'ui-sans-serif', 'system-ui',],

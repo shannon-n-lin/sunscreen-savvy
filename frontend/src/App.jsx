@@ -1,37 +1,20 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Sunscreens from './components/Sunscreens'
+import Layout from './components/Layout'
+import IndexPage from './pages/IndexPage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
+
 
 const App = () => {
-  const [sunscreens, setSunscreens] = useState([])
-  
-  useEffect(() => {
-    const getSunscreens = async () => {
-      const sunscreens = await fetchSunscreens()
-      setSunscreens(sunscreens)
-    }
-    getSunscreens()
-  }, []) // empty array is placeholder for dependency array, e.g. [user]
-
-  const fetchSunscreens = async () => {
-    const res = await fetch('http://localhost:2003/sunscreens')
-    const data = await res.json()
-    console.log(data[0].name)
-    return data
-  }
-
   return (
     <>
-      <Navbar />
-      <Hero />
-      
       <Routes>
-        <Route path='/' element = {
-          sunscreens == undefined ?  (<p>{sunscreens[0].name}</p>) : (<Sunscreens sunscreens={sunscreens} />)
-        }/>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<IndexPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+        </Route>
       </Routes>
 
     </>

@@ -5,7 +5,7 @@ const Sunscreens = ({ sunscreens }) => {
     <div className='pt-24'>
       {sunscreens.map(sunscreen => (
         <Sunscreen 
-          key={sunscreen.id}
+          key={sunscreen._id}
           sunscreen={sunscreen} 
         />
       ))}
