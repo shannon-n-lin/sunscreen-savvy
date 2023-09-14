@@ -1,4 +1,4 @@
-const Sunscreen = ({ sunscreen }) => {
+export default function Sunscreen({ sunscreen }) {
   const price = sunscreen.pricePerOz.$numberDecimal
   
   return (
@@ -27,5 +27,3 @@ const Sunscreen = ({ sunscreen }) => {
     </div>
   )
 }
-
-export default Sunscreen

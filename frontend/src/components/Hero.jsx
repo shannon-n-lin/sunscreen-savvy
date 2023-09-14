@@ -1,4 +1,4 @@
-const Hero = () => {
+export default function Hero() {
   return (
     <div className='z-0 w-full bg-[url("/src/assets/gradient2.png")] bg-cover bg-left-top -mt-[80px]'>
       <div className='h-[550px] p-4 flex flex-col text-center justify-center'>
@@ -11,5 +11,3 @@ const Hero = () => {
     </div>
   )
 }
-
-export default Hero

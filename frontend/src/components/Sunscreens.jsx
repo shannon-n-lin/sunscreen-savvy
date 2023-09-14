@@ -1,6 +1,7 @@
 import Sunscreen from './Sunscreen'
 
-const Sunscreens = ({ sunscreens }) => {
+// const Sunscreens = ({ sunscreens }) => {
+  export default function Sunscreens({ sunscreens }) {
   return (
     <div className='pt-24'>
       {sunscreens.map(sunscreen => (
@@ -12,5 +13,3 @@ const Sunscreens = ({ sunscreens }) => {
     </div>
   )
 }
-
-export default Sunscreens

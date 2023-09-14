@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Hero from '../components/Hero'
 import Sunscreens from '../components/Sunscreens'
 
-const IndexPage = () => {
+export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
     
     useEffect(() => {
@@ -29,5 +29,3 @@ const IndexPage = () => {
     </>
   )
 }
-
-export default IndexPage

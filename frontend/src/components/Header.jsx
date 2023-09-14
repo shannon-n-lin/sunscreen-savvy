@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { FiX, FiMenu } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+export default function Header() {
   const [ mobile, setMobile ] = useState(false)
 
   const handleMobile = () => {
@@ -52,5 +52,3 @@ const Header = () => {
     </div>
   )
 }
-
-export default Header
