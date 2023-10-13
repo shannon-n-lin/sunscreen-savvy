@@ -1,0 +1,35 @@
+<%- include('partials/header') -%>
+
+<main class="container">
+  <h2>Sign Up</h2>
+
+  <% if (locals.messages.errors) { %>
+    <% messages.errors.forEach( error => { %>
+      <div><%= error.msg %></div>
+    <% }) %>
+  <% } %>
+
+  <form action="/signup" method="POST">
+    <div>
+      <label for="username" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div>
+      <label for="email" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div>
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div>
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+    </div>
+    <button type="submit" class="btn btn-primary my-3">Sign up</button>
+  </form>
+
+  <div><a href="/login">Already have an account? Log in here</a></div>
+</main>
+
+<%- include('partials/footer') -%>

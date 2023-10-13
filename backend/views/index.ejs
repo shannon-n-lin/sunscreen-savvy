@@ -1,0 +1,32 @@
+<%- include('partials/header') -%>
+
+<main>
+  <section class="container p-5 text-center">
+    <% if (!user) { %>
+      <p>Hello and welcome!</p>
+      <a href="/login"><button type="button" class="btn btn-primary">Log In</button></a>
+      <a href="/signup"><button type="button" class="btn btn-secondary">Sign Up</button></a>
+    <% } %>
+    <% if (user) { %>
+      <p>Hi <%= user.username %>!</p>
+      <div><a href="/profile">Profile</a></div>
+      <div><a href="/addSunscreen">Add a Sunscreen</a></div>
+      <div><a href="/logout">Log Out</a></div>
+    <% } %>
+  </section>
+
+  <section class="container p-5">
+    <h2>All Sunscreens</h2>
+    <ul class="list-group">
+    <% sunscreens.forEach(el => { %>
+      <li class="list-group-item"> 
+        <h5><%= el.brand %></h5>
+        <h3><a href='/sunscreen/<%= el._id %>'><%= el.name %></a></h3>
+        <img src= <%= el.image %> >
+      </li>
+    <% }) %>
+    <ul>
+  </section>
+</main>
+
+<%- include('partials/footer') -%>

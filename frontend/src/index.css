@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ 
+@layer base {
+  html {
+    font-family: "Mulish", system-ui, sans-serif;
+  }
+  body {
+    background-color: #fffefa;
+  }
+  h1 {
+    @apply text-4xl font-semibold
+  }
+  a {
+    @apply underline decoration-med-gray underline-offset-4 hover:font-semibold hover:decoration-lt-orange hover:decoration-2;
+  }
+}
+
+@layer components {
+  button {
+    @apply mx-auto px-4 py-2 rounded uppercase font-bold;
+  }
+  button.btn-primary {
+  @apply bg-lt-orange hover:bg-yellow;
+  }
+  button.btn-secondary {
+    @apply border border-med-gray bg-transparent hover:bg-lt-blue;
+  }
+  input[type="text"],input[type="password"],input[type="email"] {
+    @apply w-full border border-lt-gray mt-2 mb-6 py-2 px-3 rounded;
+  }
+
+}
