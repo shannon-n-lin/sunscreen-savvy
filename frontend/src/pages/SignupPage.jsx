@@ -33,7 +33,7 @@ export default function SignupPage() {
       <h1 className='text-center mb-4'>Sign Up</h1>
       <form className='w-[80%] max-w-md mx-auto' onSubmit={handleSignup}>
         <div> 
-          <label htmlFor='username'>First Name</label>
+          <label htmlFor='username'>Username</label>
           <input type='text' id='username' 
             value={username} onChange={e => setUsername(e.target.value)} />
         </div>
