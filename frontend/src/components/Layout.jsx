@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
-      <div className='grow'><Outlet /></div>
+      <div className='grow'><Outlet /></div> {/* this section will grow to fit the content for each page */}
       <Footer />
     </div>
   )

@@ -25,6 +25,7 @@ export default function SignupPage() {
   }
 
   if (success) {
+    console.log(`Successfully created account for ${username}`)
     return<Navigate to='/' />
   }
 

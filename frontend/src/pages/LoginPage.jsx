@@ -21,6 +21,7 @@ export default function LoginPage() {
   }
 
   if (success) {
+    console.log(`Sucessfully logged in ${email}`)
     return<Navigate to='/' />
   }
 
