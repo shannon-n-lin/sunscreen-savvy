@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FiX, FiMenu } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import logo from '../assets/savvy-logo.png'
 
 export default function Header() {
   const [ mobile, setMobile ] = useState(false)
@@ -14,7 +15,7 @@ export default function Header() {
       <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto px-4 text-black'>
         {/* Logo */}
         <Link to='/'>
-          <img className='w-[150px] p-2' src='/src/assets/savvy-logo.png' alt='Savvy'/>
+          <img className='w-[150px] p-2' src={logo} alt='Savvy'/>
         </Link>
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
