@@ -12,8 +12,8 @@ export default function IndexPage() {
       setSunscreens(sunscreens)
     }
     getSunscreens()
-  }, [sunscreens]) // dependencies array checks if values have changed between renders
-
+  }, []) 
+  
   // Get list of sunscreens from backend API
   const fetchSunscreens = async () => {
     const res = await fetch('http://localhost:2003/sunscreens')
