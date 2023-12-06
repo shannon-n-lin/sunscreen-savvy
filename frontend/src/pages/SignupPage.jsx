@@ -12,12 +12,13 @@ export default function SignupPage() {
   async function handleSignup(e) {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:2003/signup', {
+      const user = await axios.post('http://localhost:2003/signup', {
         username,
         email,
         password,
         confirmPassword,
       })
+      console.log(user)
       setSuccess(true)
     } catch (err) {
       console.log(err)

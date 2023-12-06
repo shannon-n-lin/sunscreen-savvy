@@ -24,7 +24,8 @@ const postSignup = (req, res) => {
   if (validationErrors.length) {
     console.log(validationErrors)
     req.flash('errors', validationErrors)
-    return res.redirect('/signup')
+    return validationErrors
+    // return res.redirect('/signup')
   }
 
   // Sanitize email addresses 
@@ -105,17 +106,17 @@ const postLogin = (req, res, next) => {
   })
 
   passport.authenticate('local', (err, user, info) => {
-    if (err) return next(err)
+    if (err) throw err
     if (!user) {
-      req.flash('errors', info)
-      return res.redirect('/login')
+      // res.send('user does not exist')
+      res.send(info)
+    } else {
+      req.logIn(user, (err) => {
+        if (err) throw err
+        res.send(user)
+        console.log(`${req.body.email} is logged in`)
+      })
     }
-    req.logIn(user, (err) => {
-      if (err) return next(err)
-      console.log(`${req.body.email} is logged in`)
-      req.flash('success', { msg: 'Welcome!' })
-      res.redirect('/profile')
-    })
   }) (req, res, next)
 }
 
