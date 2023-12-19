@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import UserContext from '../UserContext'
 
-export default function LoginPage({ user, setUser }) {
+export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const user = useContext(UserContext)
   
   async function handleLogin(e) {
     e.preventDefault()
@@ -13,9 +15,12 @@ export default function LoginPage({ user, setUser }) {
       const res = await axios.post('http://localhost:2003/login', {
         email: email,
         password: password,
-      })
+      }, {
+        withCredentials: true,
+      } )
       setError(res.data.msg)
-      // setUser(res.data.email)
+      setUser(res.data)
+      console.log(user)
       console.log(res.data)
     } catch (err) {
       console.log(err)
@@ -31,6 +36,7 @@ export default function LoginPage({ user, setUser }) {
     <div className='mt-16'>
       <h1 className='text-center mb-4'>Log In</h1>
       {error && <span className='text-center mb-4'>{error}</span>}
+      {user && <span>Welcome {user}</span>}
       <form className='w-[80%] max-w-md mx-auto' onSubmit={handleLogin}>
         <div>
           <label htmlFor='email'>Email address</label>

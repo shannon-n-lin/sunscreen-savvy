@@ -3,6 +3,19 @@ const validator = require('validator')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
+const checkUser = async (req, res) => {
+  try {
+    if (req.user) {
+      res.json(req.user);
+    } else {
+      res.json('No user logged in')
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
 const getSignup = (req, res) => {
   res.render('signup.ejs')
 }
@@ -132,6 +145,7 @@ const logout = (req, res) => {
 }
 
 module.exports = {
+  checkUser,
   getSignup,
   postSignup,
   getLogin,
