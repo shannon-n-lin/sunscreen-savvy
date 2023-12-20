@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react'
-import { Navigate, Link } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate, redirect } from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../UserContext'
 
@@ -9,6 +9,8 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const user = useContext(UserContext)
   
+  const navigate = useNavigate()
+
   async function handleLogin(e) {
     e.preventDefault()
     try {
@@ -19,18 +21,13 @@ export default function LoginPage() {
         withCredentials: true,
       } )
       setError(res.data.msg)
-      setUser(res.data)
-      console.log(user)
       console.log(res.data)
+      navigate('/')
     } catch (err) {
       console.log(err)
     }
   }
-
-  // if (success) {
-  //   console.log(`Sucessfully logged in ${email}`)
-  //   return<Navigate to='/' />
-  // }
+  
 
   return (
     <div className='mt-16'>

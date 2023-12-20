@@ -1,15 +1,30 @@
 import { useState, useContext } from 'react'
+import { Link, useNavigate, redirect } from 'react-router-dom'
+import axios from 'axios'
 import UserContext from '../UserContext'
-import { FiX, FiMenu } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 import logo from '../assets/savvy-logo.png'
+import { FiX, FiMenu } from 'react-icons/fi'
 
 export default function Header() {
   const [ mobile, setMobile ] = useState(false)
   const user = useContext(UserContext)
-
+  
   const handleMobile = () => {
     setMobile(!mobile)
+  }
+
+  const navigate = useNavigate()
+
+  async function handleLogout(e) {
+    try {
+      const res = await axios.post('http://localhost:2003/logout', {}, {
+        withCredentials: true
+      })
+      navigate('/')
+      // return redirect('/')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -25,10 +40,13 @@ export default function Header() {
         
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
-          <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
-          <li className='p-3 whitespace-nowrap'>Latest Reviews</li>
+          {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
+          <li className='p-3 whitespace-nowrap'>Latest Reviews</li> */}
           <li className='p-3 whitespace-nowrap'>
             <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
+          </li>
+          <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
+            <button className='btn-secondary'>Log Out</button>
           </li>
           <li className='p-3 whitespace-nowrap'>
             <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
