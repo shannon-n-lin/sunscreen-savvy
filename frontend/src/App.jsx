@@ -10,7 +10,6 @@ import SignupPage from './pages/SignupPage'
 
 const App = () => {
   const [user, setUser] = useState('')
-  const [test, setTest] = useState('test')
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -33,15 +32,11 @@ const App = () => {
     }
   }
 
-  function handleTest() {
-    console.log('testing')
-  }
-
   return (
     <>
       <UserContext.Provider value={user}>
         <Routes>
-          <Route path='/' element={<Layout handleLogout={handleLogout} handleTest={handleTest}/>}> {/* use Layout component on all pages */}
+          <Route path='/' element={<Layout handleLogout={handleLogout}/>}> {/* use Layout component on all pages */}
             <Route index element={<IndexPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
