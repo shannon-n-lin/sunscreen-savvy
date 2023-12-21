@@ -3,23 +3,8 @@ const validator = require('validator')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
-const checkUser = async (req, res) => {
-  try {
-    if (req.user) {
-      res.json(req.user);
-    } else {
-      res.json('No user logged in')
-    }
-  }
-  catch (err) {
-    console.log(err)
-  }
-}
-
-const getSignup = (req, res) => {
-  res.render('signup.ejs')
-}
-
+// ---------------------------------------------------------
+// SIGN UP
 const postSignup = (req, res) => {
   const validationErrors = []
   if (!validator.isEmail(req.body.email)) {
@@ -92,10 +77,8 @@ const postSignup = (req, res) => {
   saveUser()
 }
 
-const getLogin = (req, res) => {
-  res.render('login.ejs')
-}
-
+// ---------------------------------------------------------
+// LOG IN
 const postLogin = (req, res, next) => {
   const validationErrors = []
   if (!validator.isEmail(req.body.email))
@@ -132,21 +115,49 @@ const postLogin = (req, res, next) => {
   }) (req, res, next)
 }
 
-const logout = (req, res) => {
-  req.logout()
-  req.session.destroy((err) => {
-    if (err)
-      console.log("Error : Failed to destroy the session during logout.", err);
-    req.user = null;
-  });
-  console.log('User has logged out.')
+// ---------------------------------------------------------
+// LOG OUT
+const logout = (req, res, next) => {
+  req.logout(req.user, (err)=> {
+    if (err) return next(err);
+  })
+  res.clearCookie('connect.sid');
+  res.send({isAuth: req.isAuthenticated(), user: req.user})
 }
 
+// ---------------------------------------------------------
+// CHECK USER (FRONTEND)
+const checkUser = async (req, res) => {
+  try {
+    if (req.user) {
+      res.json(req.user);
+    } else {
+      res.json('No user logged in')
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+// ---------------------------------------------------------
+// GET SIGN UP PAGE (BACKEND)
+const getSignup = (req, res) => {
+  res.render('signup.ejs')
+}
+
+// ---------------------------------------------------------
+// GET LOGIN (BACKEND)
+const getLogin = (req, res) => {
+  res.render('login.ejs')
+}
+
+
 module.exports = {
-  checkUser,
-  getSignup,
   postSignup,
-  getLogin,
   postLogin,
   logout,
+  checkUser,
+  getSignup,
+  getLogin,
 }

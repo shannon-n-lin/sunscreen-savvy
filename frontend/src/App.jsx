@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage'
 
 const App = () => {
   const [user, setUser] = useState('')
+  const [test, setTest] = useState('test')
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -20,13 +21,27 @@ const App = () => {
       console.log(res)
     }
     checkAuth()
-  }, []) 
+  }, [user]) 
+
+  async function handleLogout(e) {
+    try {
+      const res = await axios.post('http://localhost:2003/logout', {}, {withCredentials: true})
+        setUser(res.data.user)
+        console.log(user)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  function handleTest() {
+    console.log('testing')
+  }
 
   return (
     <>
       <UserContext.Provider value={user}>
         <Routes>
-          <Route path='/' element={<Layout />}> {/* use Layout component on all pages */}
+          <Route path='/' element={<Layout handleLogout={handleLogout} handleTest={handleTest}/>}> {/* use Layout component on all pages */}
             <Route index element={<IndexPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />

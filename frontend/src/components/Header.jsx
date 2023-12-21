@@ -1,30 +1,15 @@
 import { useState, useContext } from 'react'
-import { Link, useNavigate, redirect } from 'react-router-dom'
-import axios from 'axios'
+import { Link } from 'react-router-dom'
 import UserContext from '../UserContext'
 import logo from '../assets/savvy-logo.png'
 import { FiX, FiMenu } from 'react-icons/fi'
 
-export default function Header() {
+export default function Header({ handleLogout }) {
   const [ mobile, setMobile ] = useState(false)
   const user = useContext(UserContext)
   
   const handleMobile = () => {
     setMobile(!mobile)
-  }
-
-  const navigate = useNavigate()
-
-  async function handleLogout(e) {
-    try {
-      const res = await axios.post('http://localhost:2003/logout', {}, {
-        withCredentials: true
-      })
-      navigate('/')
-      // return redirect('/')
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   return (

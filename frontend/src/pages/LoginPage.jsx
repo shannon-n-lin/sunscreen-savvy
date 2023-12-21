@@ -27,7 +27,6 @@ export default function LoginPage() {
       console.log(err)
     }
   }
-  
 
   return (
     <div className='mt-16'>
