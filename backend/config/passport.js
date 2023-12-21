@@ -9,7 +9,7 @@ module.exports = function (passport) {
         // Check if account with email address exists in database
         if (!user) {
           console.log(`Email ${email} not found`)
-          return done(null, false, { msg: `We could not find an account with that email address. Please try again.` })
+          return done(null, false, { msg: 'No user found with this email address.'})
         }
         // If so, check if submitted password is correct
         user.comparePassword(password, (err, isMatch) => {
@@ -19,7 +19,7 @@ module.exports = function (passport) {
           if (isMatch) {
             return done(null, user)
           }
-          return done(null, false, { msg: 'The password you entered does not match our records. Please try again.'})
+          return done(null, false, { msg: 'Wrong password.'})
         })
       })
      })

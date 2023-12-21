@@ -18,6 +18,9 @@
   a {
     @apply underline decoration-med-gray underline-offset-4 hover:font-semibold hover:decoration-lt-orange hover:decoration-2;
   }
+  label {
+    @apply font-semibold;
+  }
 }
 
 @layer components {
@@ -25,7 +28,7 @@
     @apply mx-auto px-4 py-2 rounded uppercase font-bold;
   }
   button.btn-primary {
-  @apply bg-lt-orange hover:bg-yellow;
+    @apply bg-lt-orange hover:bg-yellow;
   }
   button.btn-secondary {
     @apply border border-med-gray bg-transparent hover:bg-lt-blue;
@@ -33,5 +36,7 @@
   input[type="text"],input[type="password"],input[type="email"] {
     @apply w-full border border-lt-gray mt-2 mb-6 py-2 px-3 rounded;
   }
-
+  .error {
+    @apply italic text-sm text-dark-orange flex -mt-3 mb-6;
+  }
 }

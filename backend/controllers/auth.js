@@ -3,19 +3,29 @@ const validator = require('validator')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
+
 // ---------------------------------------------------------
 // SIGN UP
+
 const postSignup = (req, res) => {
   const validationErrors = []
   if (!validator.isEmail(req.body.email)) {
-      validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.' })
+    res.send({ 
+      msgType: 'email',
+      msg: 'Enter a valid email address, e.g. name@email.com.' 
+    })
   }
   if (!validator.isLength(req.body.password, { min: 8 })) {
-    validationErrors.push({ msg: 'Please enter a password that is at least 8 characters long.' })
+    res.send({
+      msgType: 'password',
+      msg: 'Enter a password with at least 8 characters.' 
+    })
   }
   if (req.body.password !== req.body.confirmPassword) {
-    validationErrors.push({ msg: 'The passwords you entered do not match. Please try again.' })
-    console.log('Passwords do not match')
+    res.send({ 
+      msgType: 'confirm',
+      msg: 'Passwords do not match.' 
+    })
   }
 
   // If there are any errors, flash messages
@@ -47,9 +57,10 @@ const postSignup = (req, res) => {
       // Check if username or email address already exists in database
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
-        console.log('An account with that email address or username already exists.')
-        req.flash('errors', { msg: 'An account with that email address or username already exists.' })
-        return res.redirect('../signup')
+        // console.log('An account with that email address or username already exists.')
+        // req.flash('errors', { msg: 'An account with that email address or username already exists.' })
+        // return res.redirect('../signup')
+        res.send({ msg: 'Another user with this email address or username already exists.' })
       } 
       // Otherwise, save new user to database
       await user.save()
@@ -77,21 +88,11 @@ const postSignup = (req, res) => {
   saveUser()
 }
 
+
 // ---------------------------------------------------------
 // LOG IN
+
 const postLogin = (req, res, next) => {
-  const validationErrors = []
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.'})
-  if (validator.isEmpty(req.body.password))
-    validationErrors.push({ msg: 'Please enter a password to log in.'})
-
-  // If there are any errors, flash messages
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors)
-    return res.redirect('/login')
-  }
-
   // Sanitize email addresses 
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_lowercase: true,
@@ -100,7 +101,7 @@ const postLogin = (req, res, next) => {
     yahoo_lowercase: true,
     icloud_lowercase: true,
   })
-
+  
   passport.authenticate('local', (err, user, info) => {
     if (err) throw err
     if (!user) {
@@ -115,8 +116,10 @@ const postLogin = (req, res, next) => {
   }) (req, res, next)
 }
 
+
 // ---------------------------------------------------------
 // LOG OUT
+
 const logout = (req, res, next) => {
   req.logout(req.user, (err)=> {
     if (err) return next(err);
@@ -125,8 +128,10 @@ const logout = (req, res, next) => {
   res.send({isAuth: req.isAuthenticated(), user: req.user})
 }
 
+
 // ---------------------------------------------------------
 // CHECK USER (FRONTEND)
+
 const checkUser = async (req, res) => {
   try {
     if (req.user) {
@@ -140,14 +145,18 @@ const checkUser = async (req, res) => {
   }
 }
 
+
 // ---------------------------------------------------------
 // GET SIGN UP PAGE (BACKEND)
+
 const getSignup = (req, res) => {
   res.render('signup.ejs')
 }
 
+
 // ---------------------------------------------------------
 // GET LOGIN (BACKEND)
+
 const getLogin = (req, res) => {
   res.render('login.ejs')
 }

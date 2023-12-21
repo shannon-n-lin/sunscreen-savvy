@@ -1,61 +1,116 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import axios from 'axios'
+import UserContext from '../UserContext'
+import { FiAlertCircle } from 'react-icons/fi'
 
 export default function SignupPage() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [defaultError, setDefaultError] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [confirmError, setConfirmError] = useState('')
+  const user = useContext(UserContext)
 
   async function handleSignup(e) {
     e.preventDefault()
     try {
-      const user = await axios.post('http://localhost:2003/signup', {
+      const res = await axios.post('http://localhost:2003/signup', {
         username,
         email,
         password,
         confirmPassword,
       })
+      switch (res.data.msgType) {
+        case 'email':
+          setEmailError(res.data.msg)
+          break;
+        case 'password':
+          setPasswordError(res.data.msg)
+          break;
+        case 'confirm':
+          setConfirmError(res.data.msg)
+          break;
+        default:
+          setDefaultError(res.data.msg)
+      }
+      console.log(res)
       console.log(user)
-      setSuccess(true)
     } catch (err) {
       console.log(err)
     }
   }
 
-  if (success) {
-    console.log(`Successfully created account for ${username}`)
-    return<Navigate to='/' />
+  // TODO: After form successfully submits, redirect to home (profile in future) and log in new user
+  // if (success) {
+  //   console.log(`Successfully created account for ${username}`)
+  //   return<Navigate to='/' />
+  // }
+
+  // FIXME: Does not remove error messages from page after re-submitting form
+  function resetErrors() {
+    setEmailError('')
+    setPasswordError('')
+    setConfirmError('')
+    setDefaultError('')
   }
 
   return (
     <div className='mt-8'>
       <h1 className='text-center mb-4'>Sign Up</h1>
+      {user && <span>Welcome {user}</span>}
       <form className='w-[80%] max-w-md mx-auto' onSubmit={handleSignup}>
-        <div> 
-          <label htmlFor='username'>Username</label>
-          <input type='text' id='username' 
-            value={username} onChange={e => setUsername(e.target.value)} />
-        </div>
+        
+        {/* Email address */}
         <div>
           <label htmlFor='email'>Email address</label>
-          <input type='email' id='email'
+          <input type='email' id='email' aria-describedby='emailError'
             value={email} onChange={e => setEmail(e.target.value)} />
+          {emailError && <div className='error' id='emailError'>
+            <FiAlertCircle className='mr-1' size={16} alt='error'/>
+            {emailError}
+          </div>}
         </div>
+        
+        {/* Username */}
+        <div> 
+          <label htmlFor='username'>Username</label>
+          <input type='text' id='username' aria-describedby='usernameError'
+            value={username} onChange={e => setUsername(e.target.value)} />
+          {defaultError && <div className='error' id='usernameError'>
+            <FiAlertCircle className='mr-1' size={16} alt='error'/>
+            {defaultError}
+          </div>}
+        </div>
+
+        {/* Password */}
         <div>
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password'
+          <div id='passwordLength' className='italic text-sm my-2'>Must be 8 characters or longer.</div>
+          <input type='password' id='password' aria-describedby='passwordLength passwordError'
             value={password} onChange={e => setPassword(e.target.value)} />
+          {passwordError && <div className='error' id='passwordError'>
+            <FiAlertCircle className='mr-1' size={16} alt='error'/>
+            {passwordError}
+          </div>}
         </div>
+
+        {/* Confirm password */}
         <div>
-          <label htmlFor='confirmPassword'>Confirm Password</label>
-          <input type='password' id='confirmPassword'
+          <label htmlFor='confirmPassword'>Confirm password</label>
+          <input type='password' id='confirmPassword' aria-describedby='confirmError'
             value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+          {confirmError && <div className='error' id='confirmError'>
+            <FiAlertCircle className='mr-1' size={16} alt='error'/>
+            {confirmError}
+          </div>}
         </div>
+
         <button className='w-full btn-secondary mt-2 mb-8' type='submit'>Sign Up</button>
-        <div className='text-center'>
+        <div onClick={resetErrors} className='text-center italic'>
           <Link to='/login'>Already have an account? Log in</Link>
         </div>
       </form>
