@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Link, useNavigate, redirect } from 'react-router-dom'
+import { Link, Navigate, useNavigate, redirect } from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../UserContext'
 
@@ -7,9 +7,10 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const user = useContext(UserContext)
   
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -23,7 +24,8 @@ export default function LoginPage() {
       setError(res.data.msg)
       console.log(res.data)
       if (!res.data.msg) {
-        navigate('/')
+        // Navigate('/')
+        setSuccess(true)
       }
     } catch (err) {
       console.log(err)
@@ -34,6 +36,7 @@ export default function LoginPage() {
     <div className='mt-16'>
       <h1 className='text-center mb-4'>Log In</h1>
       {user && <span>Welcome {user}</span>}
+      
       <form className='w-[80%] max-w-md mx-auto' onSubmit={handleLogin}>
         <div>
           <label htmlFor='email'>Email address</label>
@@ -47,10 +50,16 @@ export default function LoginPage() {
         </div>
         {error && <div className='text-center mb-4 italic'>{error}</div>}
         <button className='w-full btn-secondary mt-2 mb-8' type='submit'>Log In</button>
+        
         <div className='text-center italic'>
           <Link to='/signup'>Sign up for an account</Link>
         </div>
       </form>
+
+      {success && (
+        <Navigate to='/' />
+      )}
+
     </div>
   )
 }

@@ -9,10 +9,12 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+
   const [emailError, setEmailError] = useState('')
   const [accountError, setAccountError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [confirmError, setConfirmError] = useState('')
+
   const [success, setSuccess] = useState('')
   const user = useContext(UserContext)
 
@@ -40,8 +42,24 @@ export default function SignupPage() {
       }
       if (res.data.user) {
         console.log(`Successfully created account for ${res.data.user.username}`)
+        handleLogin()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  async function handleLogin(e) {
+    try {
+      const res = await axios.post('http://localhost:2003/login', {
+        email: email,
+        password: password,
+      }, {
+        withCredentials: true,
+      } )
+      if (!res.data.msg) {
+        console.log(`${res.data.user.username} has logged in`)
         setSuccess(true)
-        // return <Navigate to='/' />
       }
     } catch (err) {
       console.log(err)
