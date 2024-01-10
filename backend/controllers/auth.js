@@ -28,12 +28,10 @@ const postSignup = (req, res) => {
     })
   }
 
-  // If there are any errors, flash messages
+  // If there are any errors, send messages
   if (validationErrors.length) {
     console.log(validationErrors)
-    req.flash('errors', validationErrors)
-    return validationErrors
-    // return res.redirect('/signup')
+    return validationErrors   // for React frontend
   }
 
   // Sanitize email addresses 
@@ -54,25 +52,25 @@ const postSignup = (req, res) => {
 
   async function saveUser() {
     try {
-      // Check if username or email address already exists in database
+      // If username or email address already exists, send error message
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
-        // console.log('An account with that email address or username already exists.')
-        // req.flash('errors', { msg: 'An account with that email address or username already exists.' })
-        // return res.redirect('../signup')
         res.send({ msg: 'Another user with this email address or username already exists.' })
       } 
       // Otherwise, save new user to database
       await user.save()
-      // Then log in new user and redirect to profile page
-      await req.logIn(user, (err) => {
-        if (err) {
-          return next(err)
-        }
-        console.log(`${req.body.email} account created`)
-        req.flash('success', { msg: 'Welcome!' })
-        res.redirect('/profile')
-      })
+      res.send({user})
+
+      // // Then log in new user and redirect to profile page
+      // await req.logIn(user, (err) => {
+      //   if (err) {
+      //     return next(err)
+      //   }
+      //   console.log(`${req.body.email} account created`)
+      //   req.flash('success', { msg: 'Welcome!' })
+      //   res.redirect('/profile')
+      // })
+
       // Save new profile for user
       const profile = new Profile({
         userId: req.user.id,
@@ -81,6 +79,7 @@ const postSignup = (req, res) => {
         skinConcern: 'none selected',
       })
       await profile.save()
+
     } catch (err) {
       console.log(err)
     }

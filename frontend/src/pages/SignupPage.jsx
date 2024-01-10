@@ -9,10 +9,11 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [defaultError, setDefaultError] = useState('')
   const [emailError, setEmailError] = useState('')
+  const [accountError, setAccountError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [confirmError, setConfirmError] = useState('')
+  const [success, setSuccess] = useState('')
   const user = useContext(UserContext)
 
   async function handleSignup(e) {
@@ -35,27 +36,23 @@ export default function SignupPage() {
           setConfirmError(res.data.msg)
           break;
         default:
-          setDefaultError(res.data.msg)
+          setAccountError(res.data.msg)
       }
-      console.log(res)
-      console.log(user)
+      if (res.data.user) {
+        console.log(`Successfully created account for ${res.data.user.username}`)
+        setSuccess(true)
+        // return <Navigate to='/' />
+      }
     } catch (err) {
       console.log(err)
     }
   }
 
-  // TODO: After form successfully submits, redirect to home (profile in future) and log in new user
-  // if (success) {
-  //   console.log(`Successfully created account for ${username}`)
-  //   return<Navigate to='/' />
-  // }
-
-  // FIXME: Does not remove error messages from page after re-submitting form
   function resetErrors() {
     setEmailError('')
     setPasswordError('')
     setConfirmError('')
-    setDefaultError('')
+    setAccountError('')
   }
 
   return (
@@ -78,11 +75,11 @@ export default function SignupPage() {
         {/* Username */}
         <div> 
           <label htmlFor='username'>Username</label>
-          <input type='text' id='username' aria-describedby='usernameError'
+          <input type='text' id='username' aria-describedby='accountError'
             value={username} onChange={e => setUsername(e.target.value)} />
-          {defaultError && <div className='error' id='usernameError'>
+          {accountError && <div className='error' id='accountError'>
             <FiAlertCircle className='mr-1' size={16} alt='error'/>
-            {defaultError}
+            {accountError}
           </div>}
         </div>
 
@@ -109,11 +106,21 @@ export default function SignupPage() {
           </div>}
         </div>
 
-        <button className='w-full btn-secondary mt-2 mb-8' type='submit'>Sign Up</button>
-        <div onClick={resetErrors} className='text-center italic'>
-          <Link to='/login'>Already have an account? Log in</Link>
-        </div>
+        {/* Submit */}
+        <button className='w-full btn-secondary mt-2 mb-8' type='submit' onClick={resetErrors}>
+          Sign Up
+        </button>
+
       </form>
+
+      <div className='text-center italic'>
+        <Link to='/login'>Already have an account? Log in</Link>
+      </div>
+
+      {success && (
+        <Navigate to='/' />
+      )}
+
     </div>
   )
 }
