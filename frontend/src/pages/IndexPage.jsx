@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import UserContext from '../UserContext'
+import UserContext from '../contexts/UserContext'
 import Hero from '../components/Hero'
 import Sunscreens from '../components/Sunscreens'
 

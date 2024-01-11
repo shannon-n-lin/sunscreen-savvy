@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import UserContext from '../UserContext'
+import UserContext from '../contexts/UserContext'
 import logo from '../assets/savvy-logo.png'
 import { FiX, FiMenu } from 'react-icons/fi'
 
@@ -28,13 +28,13 @@ export default function Header({ handleLogout }) {
           {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
           <li className='p-3 whitespace-nowrap'>Latest Reviews</li> */}
           <li className='p-3 whitespace-nowrap'>
-            <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
+            {!user && <Link to='/login'><button className='btn-secondary'>Log In</button></Link>}
           </li>
           <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
-            <button className='btn-secondary'>Log Out</button>
+            {user && <button className='btn-secondary'>Log Out</button>}
           </li>
           <li className='p-3 whitespace-nowrap'>
-            <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
+            {!user && <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>}
           </li>
         </ul>
         

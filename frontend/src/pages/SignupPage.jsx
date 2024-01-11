@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
-import { Navigate, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import UserContext from '../UserContext'
+import UserContext from '../contexts/UserContext'
 import { FiAlertCircle } from 'react-icons/fi'
 
 export default function SignupPage() {
@@ -15,8 +15,8 @@ export default function SignupPage() {
   const [passwordError, setPasswordError] = useState('')
   const [confirmError, setConfirmError] = useState('')
 
-  const [success, setSuccess] = useState('')
   const user = useContext(UserContext)
+  const navigate = useNavigate()
 
   async function handleSignup(e) {
     e.preventDefault()
@@ -40,8 +40,8 @@ export default function SignupPage() {
         default:
           setAccountError(res.data.msg)
       }
+      console.log(res.data)
       if (res.data.user) {
-        console.log(`Successfully created account for ${res.data.user.username}`)
         handleLogin()
       }
     } catch (err) {
@@ -58,8 +58,8 @@ export default function SignupPage() {
         withCredentials: true,
       } )
       if (!res.data.msg) {
-        console.log(`${res.data.user.username} has logged in`)
-        setSuccess(true)
+        navigate('/')
+        navigate(0)
       }
     } catch (err) {
       console.log(err)
@@ -134,10 +134,6 @@ export default function SignupPage() {
       <div className='text-center italic'>
         <Link to='/login'>Already have an account? Log in</Link>
       </div>
-
-      {success && (
-        <Navigate to='/' />
-      )}
 
     </div>
   )

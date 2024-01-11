@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import axios from 'axios'
-import UserContext from './UserContext'
+import UserContext from './contexts/UserContext'
 import Layout from './components/Layout'
 import IndexPage from './pages/IndexPage'
 import LoginPage from './pages/LoginPage'

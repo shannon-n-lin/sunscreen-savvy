@@ -61,16 +61,6 @@ const postSignup = (req, res) => {
       await user.save()
       res.send({user})
 
-      // // Then log in new user and redirect to profile page
-      // await req.logIn(user, (err) => {
-      //   if (err) {
-      //     return next(err)
-      //   }
-      //   console.log(`${req.body.email} account created`)
-      //   req.flash('success', { msg: 'Welcome!' })
-      //   res.redirect('/profile')
-      // })
-
       // Save new profile for user
       const profile = new Profile({
         userId: req.user.id,
