@@ -8,30 +8,16 @@ const Profile = require('../models/Profile')
 // SIGN UP
 
 const postSignup = (req, res) => {
-  const validationErrors = []
-  if (!validator.isEmail(req.body.email)) {
-    res.send({ 
-      msgType: 'email',
-      msg: 'Enter a valid email address, e.g. name@email.com.' 
-    })
+  const validationErrors = {}
+  // FIX: Even though
+  if (!validator.isEmail(req.body.email, { require_tld: true })) {
+    validationErrors.email = 'Enter a valid email address, e.g. name@email.com.'
   }
   if (!validator.isLength(req.body.password, { min: 8 })) {
-    res.send({
-      msgType: 'password',
-      msg: 'Enter a password with at least 8 characters.' 
-    })
+    validationErrors.password = 'Enter a password with at least 8 characters.'
   }
   if (req.body.password !== req.body.confirmPassword) {
-    res.send({ 
-      msgType: 'confirm',
-      msg: 'Passwords do not match.' 
-    })
-  }
-
-  // If there are any errors, send messages
-  if (validationErrors.length) {
-    console.log(validationErrors)
-    return validationErrors   // for React frontend
+    validationErrors.confirm = 'Passwords do not match.'
   }
 
   // Sanitize email addresses 
@@ -55,8 +41,14 @@ const postSignup = (req, res) => {
       // If username or email address already exists, send error message
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
-        res.send({ msg: 'Another user with this email address or username already exists.' })
+        validationErrors.account = 'Another user with this email address or username already exists.' 
       } 
+      // If there are any validation errors, send to sign up page
+      if (Object.keys(validationErrors).length) {
+        console.log(validationErrors)
+        res.send(validationErrors)
+        return
+      }
       // Otherwise, save new user to database
       await user.save()
       res.send({user})

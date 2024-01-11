@@ -27,20 +27,15 @@ export default function SignupPage() {
         password,
         confirmPassword,
       })
-      switch (res.data.msgType) {
-        case 'email':
-          setEmailError(res.data.msg)
-          break;
-        case 'password':
-          setPasswordError(res.data.msg)
-          break;
-        case 'confirm':
-          setConfirmError(res.data.msg)
-          break;
-        default:
-          setAccountError(res.data.msg)
-      }
+
+      // Validation error messages
+      if (res.data.email) setEmailError(res.data.email)
+      if (res.data.password) setPasswordError(res.data.password)
+      if (res.data.confirm) setConfirmError(res.data.confirm)
+      if (res.data.account) setAccountError(res.data.account)
       console.log(res.data)
+      
+      // If successful sign up, log in new user
       if (res.data.user) {
         handleLogin()
       }
