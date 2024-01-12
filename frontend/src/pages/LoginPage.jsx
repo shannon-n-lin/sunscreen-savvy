@@ -35,8 +35,6 @@ export default function LoginPage() {
   return (
     <div className='mt-16'>
       <h1 className='text-center mb-4'>Log In</h1>
-      {user && <span>Welcome {user}</span>}
-      
       <form className='w-[80%] max-w-md mx-auto' onSubmit={handleLogin}>
         <div>
           <label htmlFor='email'>Email address</label>

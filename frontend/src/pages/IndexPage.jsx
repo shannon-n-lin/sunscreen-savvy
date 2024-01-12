@@ -26,7 +26,6 @@ export default function IndexPage() {
   return (
     <>
       <Hero />
-      <span>Welcome {user}!</span>
       <div>
         {/* Pass in list to Sunscreens component, which loads individual Sunscreen components */}
         <Sunscreens sunscreens={sunscreens} />
