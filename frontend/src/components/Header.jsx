@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import logo from '../assets/savvy-logo.png'
 import { FiX, FiMenu } from 'react-icons/fi'
@@ -27,15 +27,15 @@ export default function Header({ handleLogout }) {
         <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
           {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
           <li className='p-3 whitespace-nowrap'>Latest Reviews</li> */}
-          <li className='p-3 whitespace-nowrap'>
-            {!user && <Link to='/login'><button className='btn-secondary'>Log In</button></Link>}
-          </li>
-          <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
-            {user && <button className='btn-secondary'>Log Out</button>}
-          </li>
-          <li className='p-3 whitespace-nowrap'>
-            {!user && <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>}
-          </li>
+          {!user && <li className='p-3 whitespace-nowrap'>
+            <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
+          </li>}
+          {!user && <li className='p-3 whitespace-nowrap'>
+            <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
+          </li>}
+          {user && <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
+            <button className='btn-secondary'>Log Out</button>
+          </li>}
         </ul>
         
         {/* Icon to open mobile menu */}
@@ -52,12 +52,17 @@ export default function Header({ handleLogout }) {
           </div>
           
           <ul className='uppercase text-right'>
-            <li onClick={handleMobile} className='pt-8 pr-4 whitespace-nowrap'>
-              <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
-            </li>
-            <li onClick={handleMobile} className='pt-6 pb-6 pr-4 whitespace-nowrap'>
-              <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
-            </li>
+            {!user && <li className='pt-8 pr-4 whitespace-nowrap'>
+              <Link to='/login'><button onClick={handleMobile} className='btn-secondary'>Log In</button></Link>
+            </li>}
+            {!user && <li className='pt-6 pb-6 pr-4 whitespace-nowrap'>
+              <Link to='/signup'><button onClick={handleMobile} className='btn-primary'>Sign Up</button></Link>
+            </li>}
+            {user && <li onClick={handleMobile} className='pt-6 pb-6 pr-4 whitespace-nowrap'>
+              <button onClick={handleLogout} className='btn-secondary'>Log Out</button>
+              {<Navigate to='/' />}
+            </li>}
+            
             <li onClick={handleMobile} className='p-4 whitespace-nowrap'>All Sunscreens</li>
             <li onClick={handleMobile} className='p-4 whitespace-nowrap'>Latest Reviews</li>
           </ul>
