@@ -6,6 +6,7 @@ import Sunscreens from '../components/Sunscreens'
 export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
   const user = useContext(UserContext)
+  const host = 'http://localhost:2003'
 
   // Set list of sunscreens  
   useEffect(() => {
