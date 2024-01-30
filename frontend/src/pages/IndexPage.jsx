@@ -19,7 +19,7 @@ export default function IndexPage() {
   
   // Get list of sunscreens from backend API
   const fetchSunscreens = async () => {
-    const res = await fetch('http://localhost:2003/sunscreens')
+    const res = await fetch(host + '/sunscreens')
     const data = await res.json()
     return data
   }

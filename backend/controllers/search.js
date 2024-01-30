@@ -1,4 +1,4 @@
-const connectDB = require('./config/database')
+const connectDB = require('../config/database')
 const { MongoClient, ObjectId } = require('mongodb')
 const Sunscreen = require('../models/Sunscreen')
 
