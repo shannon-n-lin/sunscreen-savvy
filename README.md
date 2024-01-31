@@ -7,16 +7,16 @@ This is a full stack web app that is a user-curated database of sunscreens. User
 ```
 npm install
 ```
-2. Navigate to frontend directory
+2. Start backend server
 ```
-cd frontend
-```
-
-3. Start the server
-```
+cd backend
 npm run dev
 ```
-
+3. Open another terminal window and start frontend server
+```
+cd frontend
+npm run dev
+```
 4. Go to http://localhost:5173/
 
 
