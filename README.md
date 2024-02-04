@@ -3,11 +3,21 @@ This is a full stack web app that is a user-curated database of sunscreens. User
 
 
 ## Getting Started
-1. Install npm packages with `npm install`
-2. Navigate to the backend directory and start the server with `npm run dev`
-3. Go to http://localhost:2003/
-4. To see the UI built with React, navigate to the frontend directory and start it with `npm run dev`
-5. Go to http://localhost:5173/
+1. Install npm packages
+```
+npm install
+```
+2. Navigate to frontend directory
+```
+cd frontend
+```
+
+3. Start the server
+```
+npm run dev
+```
+
+4. Go to http://localhost:5173/
 
 
 ## Built With

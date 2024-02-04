@@ -9,11 +9,11 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 
 router.get('/', homeController.getIndex)
-router.get('/test', homeController.getTest)
+router.get('/user', authController.checkUser)
 
 router.get('/signup', ensureGuest, authController.getSignup)
 router.get('/login', ensureGuest, authController.getLogin)
-router.get('/logout', authController.logout)
+router.post('/logout', authController.logout)
 
 router.post('/signup', authController.postSignup)
 router.post('/login', authController.postLogin)

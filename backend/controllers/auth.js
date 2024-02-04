@@ -3,28 +3,21 @@ const validator = require('validator')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
 
-const getSignup = (req, res) => {
-  res.render('signup.ejs')
-}
+
+// ---------------------------------------------------------
+// SIGN UP
 
 const postSignup = (req, res) => {
-  const validationErrors = []
-  if (!validator.isEmail(req.body.email)) {
-      validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.' })
+  const validationErrors = {}
+  // FIX: Even though
+  if (!validator.isEmail(req.body.email, { require_tld: true })) {
+    validationErrors.email = 'Enter a valid email address, e.g. name@email.com.'
   }
   if (!validator.isLength(req.body.password, { min: 8 })) {
-    validationErrors.push({ msg: 'Please enter a password that is at least 8 characters long.' })
+    validationErrors.password = 'Enter a password with at least 8 characters.'
   }
   if (req.body.password !== req.body.confirmPassword) {
-    validationErrors.push({ msg: 'The passwords you entered do not match. Please try again.' })
-    console.log('Passwords do not match')
-  }
-
-  // If there are any errors, flash messages
-  if (validationErrors.length) {
-    console.log(validationErrors)
-    req.flash('errors', validationErrors)
-    return res.redirect('/signup')
+    validationErrors.confirm = 'Passwords do not match.'
   }
 
   // Sanitize email addresses 
@@ -45,24 +38,21 @@ const postSignup = (req, res) => {
 
   async function saveUser() {
     try {
-      // Check if username or email address already exists in database
+      // If username or email address already exists, send error message
       let data = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username}] })
       if (data) {
-        console.log('An account with that email address or username already exists.')
-        req.flash('errors', { msg: 'An account with that email address or username already exists.' })
-        return res.redirect('../signup')
+        validationErrors.account = 'Another user with this email address or username already exists.' 
       } 
+      // If there are any validation errors, send to sign up page
+      if (Object.keys(validationErrors).length) {
+        console.log(validationErrors)
+        res.send(validationErrors)
+        return
+      }
       // Otherwise, save new user to database
       await user.save()
-      // Then log in new user and redirect to profile page
-      await req.logIn(user, (err) => {
-        if (err) {
-          return next(err)
-        }
-        console.log(`${req.body.email} account created`)
-        req.flash('success', { msg: 'Welcome!' })
-        res.redirect('/profile')
-      })
+      res.send({user})
+
       // Save new profile for user
       const profile = new Profile({
         userId: req.user.id,
@@ -71,6 +61,7 @@ const postSignup = (req, res) => {
         skinConcern: 'none selected',
       })
       await profile.save()
+
     } catch (err) {
       console.log(err)
     }
@@ -78,23 +69,11 @@ const postSignup = (req, res) => {
   saveUser()
 }
 
-const getLogin = (req, res) => {
-  res.render('login.ejs')
-}
+
+// ---------------------------------------------------------
+// LOG IN
 
 const postLogin = (req, res, next) => {
-  const validationErrors = []
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address with this format: name@email.com.'})
-  if (validator.isEmpty(req.body.password))
-    validationErrors.push({ msg: 'Please enter a password to log in.'})
-
-  // If there are any errors, flash messages
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors)
-    return res.redirect('/login')
-  }
-
   // Sanitize email addresses 
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_lowercase: true,
@@ -103,37 +82,72 @@ const postLogin = (req, res, next) => {
     yahoo_lowercase: true,
     icloud_lowercase: true,
   })
-
+  
   passport.authenticate('local', (err, user, info) => {
-    if (err) return next(err)
+    if (err) throw err
     if (!user) {
-      req.flash('errors', info)
-      return res.redirect('/login')
+      res.send(info)
+    } else {
+      req.logIn(user, (err) => {
+        if (err) throw err
+        res.send(user)
+        console.log(`${req.body.email} is logged in`)
+      })
     }
-    req.logIn(user, (err) => {
-      if (err) return next(err)
-      console.log(`${req.body.email} is logged in`)
-      req.flash('success', { msg: 'Welcome!' })
-      res.redirect('/profile')
-    })
   }) (req, res, next)
 }
 
-const logout = (req, res) => {
-  req.logout()
-  req.session.destroy((err) => {
-    if (err)
-      console.log("Error : Failed to destroy the session during logout.", err);
-    req.user = null;
-    res.redirect("/");
-  });
-  console.log('User has logged out.')
+
+// ---------------------------------------------------------
+// LOG OUT
+
+const logout = (req, res, next) => {
+  req.logout(req.user, (err)=> {
+    if (err) return next(err);
+  })
+  res.clearCookie('connect.sid');
+  res.send({isAuth: req.isAuthenticated(), user: req.user})
 }
 
+
+// ---------------------------------------------------------
+// CHECK USER (FRONTEND)
+
+const checkUser = async (req, res) => {
+  try {
+    if (req.user) {
+      res.json(req.user);
+    } else {
+      res.json('No user logged in')
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+
+// ---------------------------------------------------------
+// GET SIGN UP PAGE (BACKEND)
+
+const getSignup = (req, res) => {
+  res.render('signup.ejs')
+}
+
+
+// ---------------------------------------------------------
+// GET LOGIN (BACKEND)
+
+const getLogin = (req, res) => {
+  res.render('login.ejs')
+}
+
+
 module.exports = {
-  getSignup,
   postSignup,
-  getLogin,
   postLogin,
   logout,
+  checkUser,
+  getSignup,
+  getLogin,
 }

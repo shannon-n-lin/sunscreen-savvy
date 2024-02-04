@@ -16,13 +16,4 @@ const getIndex = async (req, res) => {
   }
 }
 
-const getTest = async (req, res) => {
-  try {
-    res.json('test ok')
-  }
-  catch (err) {
-    console.log(err)
-  }
-}
-
-module.exports = { getIndex, getTest }
+module.exports = { getIndex }

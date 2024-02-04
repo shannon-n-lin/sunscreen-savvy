@@ -1,5 +1,10 @@
 export default function Sunscreen({ sunscreen }) {
   const price = sunscreen.pricePerOz.$numberDecimal
+  let priceRange
+  priceRange = price < 5 ? '$' :
+               price < 10 ? '$$' : 
+               price < 15 ? '$$$' : 
+               price < 25 ? '$$$$' : '$$$$$'
   
   return (
     <div className=''>
@@ -15,11 +20,7 @@ export default function Sunscreen({ sunscreen }) {
               <li className='mt-2'>Form: {sunscreen.form}</li>
               <li className='mt-2'>Type: {sunscreen.type}</li>
               <li className='mt-2'>SPF: {sunscreen.spf}</li>
-              <li className='mt-2'>Price: {price < 5 ? '$' :
-                                       price < 10 ? '$$' : 
-                                       price < 15 ? '$$$' : 
-                                       price < 25 ? '$$$$' : '$$$$$'}
-              </li>
+              <li className='mt-2'>Price: {priceRange}</li>
             </ul>
           </div>
         </div>
