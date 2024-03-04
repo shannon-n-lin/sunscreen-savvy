@@ -18,6 +18,9 @@
   h2 {
     @apply text-2xl font-semibold
   }
+  h3 {
+    @apply font-bold uppercase
+  }
   a {
     @apply underline decoration-med-gray underline-offset-4 hover:font-semibold hover:decoration-lt-orange hover:decoration-2;
   }
@@ -44,10 +47,11 @@
            italic text-sm text-dark-orange;
   }
   button.btn-dropdown {
-    @apply w-60 border border-med-gray bg-white hover:bg-lt-blue shadow; 
+    @apply  w-28 border border-med-gray bg-white
+            text-left; 
   }
   .dropdown {
-    @apply absolute flex flex-col w-60 mt-2 
+    @apply absolute flex flex-col w-28
            border border-med-gray rounded bg-white;
   }
   .dropdown-link {

@@ -2,6 +2,8 @@ import { useState, useEffect, useContext, useRef } from 'react'
 import UserContext from '../contexts/UserContext'
 import Hero from '../components/Hero'
 import Sunscreens from '../components/Sunscreens'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
@@ -14,6 +16,7 @@ export default function IndexPage() {
 
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
+  const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
 
   const dropdownRefs = {
     form: useRef(null),
@@ -46,19 +49,6 @@ export default function IndexPage() {
   }
 
   useEffect(() => {
-    // const handleOutsideClick = (event) => {
-    //   Object.values(dropdownRefs).forEach((ref) => {
-    //     if (ref.current && !ref.current.contains(event.target)) {
-    //       setDropdownStates((prevState) => ({
-    //         ...prevState,
-    //         form: false,
-    //         type: false,
-    //         spf: false,
-    //         price: false
-    //       }))
-    //     }
-    //   })
-    // }
     const handleOutsideClick = (event) => {
       const isDropdownClick = Object.values(dropdownRefs)
         .some(ref => ref.current && ref.current.contains(event.target))
@@ -83,13 +73,14 @@ export default function IndexPage() {
     <>
       <Hero />
       <div>
-        <div>
+        <div> 
           <h2 className='h2 text-center mt-16'>Welcome, {user}!</h2>
         </div>
-        <div className='grid grid-flow-col justify-center mx-16 my-4 gap-4'>
+        <div className='grid grid-flow-col justify-start mx-16 my-4 gap-4'>
+          <h3 className='h3 my-auto'>Filter by</h3>
           <div ref={dropdownRefs.form}>
-            <button className='btn-dropdown' onClick={() => toggleDropdown('form')}> 
-              Form
+            <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('form')}> 
+              Form {dropdownIcon}
             </button>
             {dropdownStates.form && (
               <div className='dropdown'>
@@ -100,8 +91,8 @@ export default function IndexPage() {
             )}
           </div>
           <div ref={dropdownRefs.type}>
-            <button className='btn-dropdown' onClick={() => toggleDropdown('type')}> 
-              Type
+            <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('type')}> 
+              Type {dropdownIcon}
             </button>
             {dropdownStates.type && (
               <div className='dropdown'>
@@ -112,8 +103,8 @@ export default function IndexPage() {
             )}
           </div>
           <div ref={dropdownRefs.spf}>
-            <button className='btn-dropdown' onClick={() => toggleDropdown('spf')}> 
-              SPF
+            <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('spf')}> 
+              SPF {dropdownIcon}
             </button>
             {dropdownStates.spf && (
               <div className='dropdown'>
@@ -125,8 +116,8 @@ export default function IndexPage() {
             )}
           </div>
           <div ref={dropdownRefs.price}>
-            <button className='btn-dropdown' onClick={() => toggleDropdown('price')}> 
-              Price
+            <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('price')}> 
+              Price {dropdownIcon} 
             </button>
             {dropdownStates.price && (
               <div className='dropdown'>
