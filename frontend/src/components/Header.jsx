@@ -20,9 +20,7 @@ export default function Header({ handleLogout }) {
         <Link to='/'>
           <img className='w-[150px] p-2' src={logo} alt='Savvy'/>
         </Link>
-
-        {user && <span>Welcome {user}</span>}
-        
+                
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
           {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
