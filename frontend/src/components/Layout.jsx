@@ -3,11 +3,6 @@ import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 
 export default function Layout({ handleLogout }) {
-
-  function handleTest2() {
-    console.log('testing')
-  }
-
   return (
     <div className='flex flex-col min-h-screen'>
       <Header handleLogout={handleLogout} />

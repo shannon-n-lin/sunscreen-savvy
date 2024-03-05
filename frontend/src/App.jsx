@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import IndexPage from './pages/IndexPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AllSunscreensPage from './pages/AllSunscreensPage'
 
 
 const App = () => {
@@ -36,10 +37,13 @@ const App = () => {
     <>
       <UserContext.Provider value={user}>
         <Routes>
-          <Route path='/' element={<Layout handleLogout={handleLogout}/>}> {/* use Layout component on all pages */}
-            <Route index element={<IndexPage />} />
-            <Route path='/login' element={<LoginPage />} />
+          <Route index element={<IndexPage headerColor="white" handleLogout={handleLogout}/>} />
+          {/* use Layout component on all pages */}
+          <Route path='/' element={<Layout handleLogout={handleLogout}/>}> 
+            {/* <Route index element={<IndexPage headerColor="white"/>} /> */}
+            <Route path='/login' element={<LoginPage headerColor="black"/>} />
             <Route path='/signup' element={<SignupPage />} />
+            <Route path='/sunscreens' element={<AllSunscreensPage />} />
           </Route>
         </Routes>
       </UserContext.Provider>

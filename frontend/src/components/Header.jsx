@@ -2,9 +2,10 @@ import { useState, useContext } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import savvyLogoWhite from '../assets/savvy-logo-white.svg'
+import savvyLogoBlack from '../assets/savvy-logo-black.png'
 import { FiX, FiMenu } from 'react-icons/fi'
 
-export default function Header({ handleLogout }) {
+export default function Header({ handleLogout, textColor='black' }) {
   const [ mobile, setMobile ] = useState(false)
   const user = useContext(UserContext)
   
@@ -18,13 +19,21 @@ export default function Header({ handleLogout }) {
         
         {/* Logo */}
         <Link to='/'>
-          <img className='w-[160px]' src={savvyLogoWhite} alt='Savvy'/>
+          <img 
+            className='w-[160px]' 
+            src={textColor === 'white' ? savvyLogoWhite : savvyLogoBlack} 
+            alt='Savvy'
+          />
         </Link>
                 
         {/* Desktop nav menu */}
-        <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
-          {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
-          <li className='p-3 whitespace-nowrap'>Latest Reviews</li> */}
+        <ul className='hidden md:flex items-center uppercase text-sm font-bold gap-3'>
+          <li className={`p-3 whitespace-nowrap text-${textColor}`}>
+            <Link to='/sunscreens'>All Sunscreens</Link>
+          </li>
+          <li className={`p-3 whitespace-nowrap text-${textColor}`}>
+            <Link to='/sunscreens'>About</Link>
+          </li>
           {!user && <li className='pl-3 whitespace-nowrap'>
             <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
           </li>}
