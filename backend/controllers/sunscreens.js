@@ -62,9 +62,24 @@ const getSunscreen = async (req, res) => {
   }
 }
 
+// const getAllSunscreens = async (req, res) => {
+//   try {
+//     const sunscreens = await Sunscreen.find({})
+//     return res.json(sunscreens)
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 const getAllSunscreens = async (req, res) => {
   try {
-    const sunscreens = await Sunscreen.find({})
+    let filters = {}
+    if (req.query.type) {
+      filters.type = req.query.type
+    }
+    if (req.query.form) {
+      filters.form = req.query.form
+    }
+    const sunscreens = await Sunscreen.find(filters)
     return res.json(sunscreens)
   } catch (err) {
     console.log(err)

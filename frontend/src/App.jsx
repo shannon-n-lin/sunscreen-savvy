@@ -43,7 +43,7 @@ const App = () => {
             {/* <Route index element={<IndexPage headerColor="white"/>} /> */}
             <Route path='/login' element={<LoginPage headerColor="black"/>} />
             <Route path='/signup' element={<SignupPage />} />
-            <Route path='/sunscreens' element={<AllSunscreensPage />} />
+            <Route path='/all-sunscreens' element={<AllSunscreensPage />} />
           </Route>
         </Routes>
       </UserContext.Provider>

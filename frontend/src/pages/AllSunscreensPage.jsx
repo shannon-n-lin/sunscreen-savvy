@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import UserContext from '../contexts/UserContext'
-import Hero from '../components/Hero'
 import Sunscreens from '../components/Sunscreens'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 
 export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
+  const [query, setQuery] = useState('')
   const [dropdownStates, setDropdownStates] = useState({
     type: false,
     form: false,
@@ -25,20 +25,26 @@ export default function IndexPage() {
     price: useRef(null)
   }
 
-  // Set list of sunscreens  
+  // Get list of sunscreens from backend API 
   useEffect(() => {
+    console.log(query)
     const getSunscreens = async () => {
-      const sunscreens = await fetchSunscreens()
-      setSunscreens(sunscreens)
+      const res = await fetch(host + '/sunscreens' + query)
+      const data = await res.json()
+      setSunscreens(data)
     }
     getSunscreens()
-  }, []) 
-  
-  // Get list of sunscreens from backend API
-  const fetchSunscreens = async () => {
-    const res = await fetch(host + '/sunscreens')
-    const data = await res.json()
-    return data
+  }, [query]) 
+
+  // Add selected filter dropdowns to API request
+  const addQuery = (newQuery) => {
+    setQuery((prevState) => {
+      if (prevState) {
+        return prevState + '&' + newQuery
+      } else {
+        return prevState + '?' + newQuery 
+      }
+    })
   }
 
   // Toggle filter dropdowns on/off
@@ -75,24 +81,8 @@ export default function IndexPage() {
 
   return (
     <>
-      <div className='max-w-[1240px] grid grid-flow-col gap-12 justify-center mx-auto my-20'>
-        <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient1.png")] bg-cover bg-bottom 
-        flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Chemical Sunscreens</h2></a>
-        </div>
-        <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover  
-        flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Mineral Sunscreens</h2></a>
-        </div>
-        <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover bg-top
-        flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Budget Sunscreens</h2></a>
-        </div>
-      </div>
+      <h1 className='h1 text-center my-16'>All Sunscreens</h1>
       <div>
-        <div> 
-          {user && <h2 className='h2 text-center mt-16'>Welcome, {user}!</h2>}
-        </div>
         <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-10 gap-4'>
           <h3 className='h3 my-auto'>Filter by</h3>
           <div ref={dropdownRefs.form}>
@@ -101,9 +91,9 @@ export default function IndexPage() {
             </button>
             {dropdownStates.form && (
               <div className='dropdown'>
-                <a href='' className='dropdown-link'>Lotion</a>
-                <a href='' className='dropdown-link'>Spray</a>
-                <a href='' className='dropdown-link'>Stick</a>
+                <span className='dropdown-link' onClick={() => addQuery('form=lotion')}>Lotion</span>
+                <span className='dropdown-link' onClick={() => addQuery('form=spray')}>Spray</span>
+                <span className='dropdown-link' onClick={() => addQuery('form=stick')}>Stick</span>
               </div>
             )}
           </div>
@@ -113,9 +103,9 @@ export default function IndexPage() {
             </button>
             {dropdownStates.type && (
               <div className='dropdown'>
-                <a href='' className='dropdown-link'>Chemical</a>
-                <a href='' className='dropdown-link'>Mineral</a>
-                <a href='' className='dropdown-link'>Hybrid</a>
+                <span className='dropdown-link' onClick={() => addQuery('type=chemical')}>Chemical</span>
+                <span className='dropdown-link' onClick={() => addQuery('type=physical')}>Physical</span>
+                <span className='dropdown-link' onClick={() => addQuery('type=hybrid')}>Hybrid</span>
               </div>
             )}
           </div>

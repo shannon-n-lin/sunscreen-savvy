@@ -29,7 +29,7 @@ export default function Header({ handleLogout, textColor='black' }) {
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold gap-3'>
           <li className={`p-3 whitespace-nowrap text-${textColor}`}>
-            <Link to='/sunscreens'>All Sunscreens</Link>
+            <Link to='/all-sunscreens'>All Sunscreens</Link>
           </li>
           <li className={`p-3 whitespace-nowrap text-${textColor}`}>
             <Link to='/sunscreens'>About</Link>
