@@ -14,7 +14,7 @@ export default function Header({ handleLogout }) {
 
   return (
     <div className='w-full z-10'>
-      <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto px-4 text-black'>
+      <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto text-black'>
         
         {/* Logo */}
         <Link to='/'>
@@ -25,10 +25,10 @@ export default function Header({ handleLogout }) {
         <ul className='hidden md:flex items-center uppercase text-sm font-bold'>
           {/* <li className='p-3 whitespace-nowrap'>All Sunscreens</li>
           <li className='p-3 whitespace-nowrap'>Latest Reviews</li> */}
-          {!user && <li className='p-3 whitespace-nowrap'>
+          {!user && <li className='pl-3 whitespace-nowrap'>
             <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
           </li>}
-          {!user && <li className='p-3 whitespace-nowrap'>
+          {!user && <li className='pl-3 whitespace-nowrap'>
             <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
           </li>}
           {user && <li onClick={handleLogout} className='p-3 whitespace-nowrap'>

@@ -41,20 +41,24 @@ export default function IndexPage() {
     return data
   }
 
+  // Toggle filter dropdowns on/off
+  // When one filter dropdown is clicked, toggle off other dropdowns
   const toggleDropdown = (dropdownId) => {
     setDropdownStates((prevState) => ({
-      ...prevState,
-      [dropdownId]: !prevState[dropdownId]
+      type: dropdownId === 'type' ? !prevState.type : false,
+      form: dropdownId === 'form' ? !prevState.form : false,
+      spf: dropdownId === 'spf' ? !prevState.spf : false,
+      price: dropdownId === 'price' ? !prevState.price : false,
     }))
   }
-
+  
+  // Close filter dropdowns when user clicks on page
   useEffect(() => {
     const handleOutsideClick = (event) => {
       const isDropdownClick = Object.values(dropdownRefs)
         .some(ref => ref.current && ref.current.contains(event.target))
       if (!isDropdownClick) {
         setDropdownStates((prevState) => ({
-          ...prevState,
           form: false,
           type: false,
           spf: false,
@@ -74,9 +78,9 @@ export default function IndexPage() {
       <Hero />
       <div>
         <div> 
-          <h2 className='h2 text-center mt-16'>Welcome, {user}!</h2>
+          {user && <h2 className='h2 text-center mt-16'>Welcome, {user}!</h2>}
         </div>
-        <div className='grid grid-flow-col justify-start mx-16 my-4 gap-4'>
+        <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-10 gap-4'>
           <h3 className='h3 my-auto'>Filter by</h3>
           <div ref={dropdownRefs.form}>
             <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('form')}> 

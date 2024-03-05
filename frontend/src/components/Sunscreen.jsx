@@ -7,24 +7,40 @@ export default function Sunscreen({ sunscreen }) {
                price < 25 ? '$$$$' : '$$$$$'
   
   return (
-    <div className='h-full border-[1px] border-lt-blue rounded-xl shadow-md bg-white'>
-      <div className='md:flex'>
-        <div className='md:shrink-0'>
-          <img className='h-48 w-full p-2 object-cover md:h-full md:w-48 border border-lt-blue rounded' 
-               src={sunscreen.image} 
-               alt={`Packaging of ${sunscreen.name}`}
-          />
-        </div>
-        <div className='p-8'>
-          <div className='uppercase tracking-wide text-sm font-semibold hover:underline'>{sunscreen.brand}</div>
-          <a href='#' className='block mt-1 text-lg/tight font-medium hover:underline'>{sunscreen.name}</a>
-          <ul>
-            <li className='mt-2'>Form: {sunscreen.form}</li>
-            <li className='mt-2'>Type: {sunscreen.type}</li>
-            <li className='mt-2'>SPF: {sunscreen.spf}</li>
-            <li className='mt-2'>Price: {priceRange}</li>
-          </ul>
-        </div>
+    <div className='h-72 flex flex-row border-[1px] border-lt-gray rounded-xl shadow-md bg-white'>
+      {/* <div className='w-5/12 m-5'>
+        <img className='w-full h-full object-cover border border-lt-blue rounded-xl' 
+              src={sunscreen.image} 
+              alt={`Packaging of ${sunscreen.name}`}
+        />
+      </div> */}
+      <div className='w-5/12 mt-4'>
+        <img className='w-full h-full object-contain' 
+              src={sunscreen.image} 
+              alt={`Packaging of ${sunscreen.name}`}
+        />
+      </div>
+      <div className='w-7/12 p-8'>
+        <div className='uppercase tracking-wide text-sm font-semibold hover:underline'>{sunscreen.brand}</div>
+        <a href='#' className='mt-2 block text-xl/tight font-semibold hover:underline'>{sunscreen.name}</a>
+        <ul className='mt-5'>
+          <li className='mt-1'>
+            <span className='font-bold'>FORM: </span>
+            {sunscreen.form}
+          </li>
+          <li className='mt-1'>
+            <span className='font-bold'>TYPE: </span>
+            {sunscreen.type}
+          </li>
+          <li className='mt-1'>
+            <span className='font-bold'>SPF: </span>
+            {sunscreen.spf}
+          </li>
+          <li className='mt-1'>
+            <span className='font-bold'>PRICE: </span>
+            {priceRange}
+          </li>
+        </ul>
       </div>
     </div>    
   )
