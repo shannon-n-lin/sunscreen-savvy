@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
-import logo from '../assets/savvy-logo.png'
+import savvyLogoWhite from '../assets/savvy-logo-white.svg'
 import { FiX, FiMenu } from 'react-icons/fi'
 
 export default function Header({ handleLogout }) {
@@ -18,7 +18,7 @@ export default function Header({ handleLogout }) {
         
         {/* Logo */}
         <Link to='/'>
-          <img className='w-[150px] p-2' src={logo} alt='Savvy'/>
+          <img className='w-[160px]' src={savvyLogoWhite} alt='Savvy'/>
         </Link>
                 
         {/* Desktop nav menu */}
