@@ -13,6 +13,13 @@ export default function IndexPage() {
     spf: false,
     price: false
   })
+  const [selectedFilters, setSelectedFilters] = useState({
+    type: '',
+    form: '',
+    spft: '',
+    price: ''
+  })
+  
 
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
@@ -27,14 +34,24 @@ export default function IndexPage() {
 
   // Get list of sunscreens from backend API 
   useEffect(() => {
-    console.log(query)
     const getSunscreens = async () => {
-      const res = await fetch(host + '/sunscreens' + query)
+      const res = await fetch(host + '/sunscreens' + '?type=chemical,physical&form=stick,spray')
       const data = await res.json()
       setSunscreens(data)
     }
     getSunscreens()
   }, [query]) 
+
+  // // Add selected filter dropdowns to API request
+  // const addQuery = (newQuery) => {
+  //   setQuery((prevState) => {
+  //     if (prevState) {
+  //       return prevState + '&' + newQuery
+  //     } else {
+  //       return prevState + '?' + newQuery 
+  //     }
+  //   })
+  // }
 
   // Add selected filter dropdowns to API request
   const addQuery = (newQuery) => {
@@ -46,6 +63,18 @@ export default function IndexPage() {
       }
     })
   }
+
+  /* 
+    let filters = {}
+    if (req.query.type) {
+      filters.type = req.query.type
+    }
+    if (req.query.form) {
+      filters.form = req.query.form
+    }
+  */
+
+
 
   // Toggle filter dropdowns on/off
   // When one filter dropdown is clicked, toggle off other dropdowns
