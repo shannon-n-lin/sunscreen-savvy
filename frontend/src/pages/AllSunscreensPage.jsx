@@ -32,22 +32,26 @@ export default function IndexPage() {
   }
 
   // Get list of sunscreens from backend API 
-  useEffect(() => {
-    console.log(query)
-    const getSunscreens = async () => {
-      const res = await fetch(host + '/sunscreens' + query)
-      const data = await res.json()
-      setSunscreens(data)
-    }
-    getSunscreens()
-  }, [query]) 
+  const getSunscreens = async () => {
+    const res = await fetch(host + '/sunscreens' + query)
+    // const res = await fetch(host + '/sunscreens' + '?spf=50')
+    const data = await res.json()
+    setSunscreens(data)
+  }
 
   // Add new selected filter to state
   const addFilter = (filter, value) => {
-    setSelectedFilters((prevState) => ({
-      ...prevState,
-      [filter]: [...prevState[filter], value]
-    }))
+    if (filter === 'spf') {
+      setSelectedFilters((prevState) => ({
+        ...prevState,
+        [filter]: [value]
+      }))
+    } else {
+      setSelectedFilters((prevState) => ({
+        ...prevState,
+        [filter]: [...prevState[filter], value]
+      }))
+    }
   }
 
   // Update API query when there is a new selected filter
@@ -57,10 +61,18 @@ export default function IndexPage() {
       if (selectedFilters[key].length > 0) {
         newQuery += `&${key}=${selectedFilters[key]}`
       }
+    }
+    if (newQuery) {
       newQuery = '?' + newQuery.slice(1)
     }
     setQuery(newQuery)
   }, [selectedFilters])
+
+  // Make a new API request when there is a new query
+  useEffect(() => {
+    console.log(query)
+    getSunscreens()
+  }, [query]) 
 
   // Toggle filter dropdowns on/off
   // When one filter dropdown is clicked, toggle off other dropdowns
@@ -130,10 +142,10 @@ export default function IndexPage() {
             </button>
             {dropdownStates.spf && (
               <div className='dropdown'>
-                <a href='' className='dropdown-link'>15+</a>
-                <a href='' className='dropdown-link'>30+</a>
-                <a href='' className='dropdown-link'>50+</a>
-                <a href='' className='dropdown-link'>70+</a>
+                <span className='dropdown-link' onClick={() => addFilter('spf', 15)}>15+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', 30)}>30+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', 50)}>50+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', 70)}>70+</span>
               </div>
             )}
           </div>
@@ -143,11 +155,11 @@ export default function IndexPage() {
             </button>
             {dropdownStates.price && (
               <div className='dropdown'>
-                <a href='' className='dropdown-link'>$</a>
-                <a href='' className='dropdown-link'>$$</a>
-                <a href='' className='dropdown-link'>$$$</a>
-                <a href='' className='dropdown-link'>$$$$</a>
-                <a href='' className='dropdown-link'>$$$$$</a>
+                <span className='dropdown-link' onClick={() => addFilter('price', 5)}>$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', 10)}>$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', 15)}>$$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', 20)}>$$$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', 25)}>$$$$$</span>
               </div>
             )}
           </div>

@@ -64,7 +64,7 @@ const getSunscreen = async (req, res) => {
 
 const getAllSunscreens = async (req, res) => {
   try {
-    const { type, form } = req.query
+    const { type, form, spf, price } = req.query
     let filters = {}
     if (type) {
       const typeValues = type.split(',')
@@ -82,6 +82,10 @@ const getAllSunscreens = async (req, res) => {
         filters.form = {$in: formValues}
       }
     }
+    if (spf) {
+      filters.spf = {$gte: parseInt(spf)}
+    }
+    console.log(filters)
     const sunscreens = await Sunscreen.find(filters)
     return res.json(sunscreens)
   } catch (err) {
