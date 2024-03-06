@@ -41,7 +41,7 @@ export default function IndexPage() {
 
   // Add new selected filter to state
   const addFilter = (filter, value) => {
-    if (filter === 'spf' || 'price') {
+    if (filter === 'spf' || filter === 'price') {
       setSelectedFilters((prevState) => ({
         ...prevState,
         [filter]: value
@@ -54,7 +54,22 @@ export default function IndexPage() {
     }
   }
 
-  // Update API query when there is a new selected filter
+  // Remove filter from state
+  const removeFilter = (filter, value) => {
+    if (filter === 'spf' || filter === 'price') {
+      setSelectedFilters((prevState) => ({
+        ...prevState,
+        [filter]: ''
+      }))
+    } else {
+      setSelectedFilters((prevState) => ({
+        ...prevState,
+        [filter]: prevState[filter].filter(v => v !== value)
+      }))
+    }
+  }
+
+  // Update API query when filters change
   useEffect(() => {
     let newQuery = ''
     for (let key in selectedFilters) {
@@ -99,7 +114,6 @@ export default function IndexPage() {
         }))
       }
     }
-
     document.body.addEventListener('click', handleOutsideClick)
     return () => {
       document.body.removeEventListener('click', handleOutsideClick)
@@ -112,6 +126,8 @@ export default function IndexPage() {
       <div>
         <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-10 gap-4'>
           <h3 className='h3 my-auto'>Filter by</h3>
+          
+          {/* FORM */}
           <div ref={dropdownRefs.form}>
             <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('form')}> 
               Form {dropdownIcon}
@@ -124,6 +140,8 @@ export default function IndexPage() {
               </div>
             )}
           </div>
+
+          {/* TYPE */}
           <div ref={dropdownRefs.type}>
             <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('type')}> 
               Type {dropdownIcon}
@@ -131,11 +149,13 @@ export default function IndexPage() {
             {dropdownStates.type && (
               <div className='dropdown'>
                 <span className='dropdown-link' onClick={() => addFilter('type', 'chemical')}>Chemical</span>
-                <span className='dropdown-link' onClick={() => addFilter('type', 'physical')}>Physical</span>
+                <span className='dropdown-link' onClick={() => addFilter('type', 'physical')}>Mineral</span>
                 <span className='dropdown-link' onClick={() => addFilter('type', 'hybrid')}>Hybrid</span>
               </div>
             )}
           </div>
+
+          {/* SPF */}
           <div ref={dropdownRefs.spf}>
             <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('spf')}> 
               SPF {dropdownIcon}
@@ -149,6 +169,8 @@ export default function IndexPage() {
               </div>
             )}
           </div>
+
+          {/* PRICE */}
           <div ref={dropdownRefs.price}>
             <button className='btn-dropdown flex justify-between items-center' onClick={() => toggleDropdown('price')}> 
               Price {dropdownIcon} 
@@ -163,6 +185,31 @@ export default function IndexPage() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* SELECTED FILTERS */}
+        <div>
+          <button className='mr-6' onClick={() => removeFilter('form', 'lotion')}>Lotion x</button>
+          <button className='mr-6' onClick={() => removeFilter('form', 'spray')}>Spray x</button>
+          <button className='mr-6' onClick={() => removeFilter('form', 'stick')}>Stick x</button>
+        </div>
+        <div>
+          <button className='mr-6' onClick={() => removeFilter('type', 'chemical')}>Chemical x</button>
+          <button className='mr-6' onClick={() => removeFilter('type', 'physical')}>Mineral x</button>
+          <button className='mr-6' onClick={() => removeFilter('type', 'hybrid')}>Hybrid x</button>
+        </div>
+        <div>
+          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 15+ x</button>
+          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 30+ x</button>
+          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 50+ x</button>
+          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 70+ x</button>
+        </div>
+        <div>
+          <button className='mr-6' onClick={() => removeFilter('price')}>$ x</button>
+          <button className='mr-6' onClick={() => removeFilter('price')}>$$ x</button>
+          <button className='mr-6' onClick={() => removeFilter('price')}>$$$ x</button>
+          <button className='mr-6' onClick={() => removeFilter('price')}>$$$$ x</button>
+          <button className='mr-6' onClick={() => removeFilter('price')}>$$$$$ x</button>
         </div>
 
         {/* Pass in list to Sunscreens component, which loads individual Sunscreen components */}
