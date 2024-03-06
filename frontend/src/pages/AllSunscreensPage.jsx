@@ -14,12 +14,11 @@ export default function IndexPage() {
     price: false
   })
   const [selectedFilters, setSelectedFilters] = useState({
-    type: '',
-    form: '',
-    spft: '',
-    price: ''
+    type: [],
+    form: [],
+    spf: [],
+    price: []
   })
-  
 
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
@@ -34,47 +33,34 @@ export default function IndexPage() {
 
   // Get list of sunscreens from backend API 
   useEffect(() => {
+    console.log(query)
     const getSunscreens = async () => {
-      const res = await fetch(host + '/sunscreens' + '?type=chemical,physical&form=stick,spray')
+      const res = await fetch(host + '/sunscreens' + query)
       const data = await res.json()
       setSunscreens(data)
     }
     getSunscreens()
   }, [query]) 
 
-  // // Add selected filter dropdowns to API request
-  // const addQuery = (newQuery) => {
-  //   setQuery((prevState) => {
-  //     if (prevState) {
-  //       return prevState + '&' + newQuery
-  //     } else {
-  //       return prevState + '?' + newQuery 
-  //     }
-  //   })
-  // }
-
-  // Add selected filter dropdowns to API request
-  const addQuery = (newQuery) => {
-    setQuery((prevState) => {
-      if (prevState) {
-        return prevState + '&' + newQuery
-      } else {
-        return prevState + '?' + newQuery 
-      }
-    })
+  // Add new selected filter to state
+  const addFilter = (filter, value) => {
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      [filter]: [...prevState[filter], value]
+    }))
   }
 
-  /* 
-    let filters = {}
-    if (req.query.type) {
-      filters.type = req.query.type
+  // Update API query when there is a new selected filter
+  useEffect(() => {
+    let newQuery = ''
+    for (let key in selectedFilters) {
+      if (selectedFilters[key].length > 0) {
+        newQuery += `&${key}=${selectedFilters[key]}`
+      }
+      newQuery = '?' + newQuery.slice(1)
     }
-    if (req.query.form) {
-      filters.form = req.query.form
-    }
-  */
-
-
+    setQuery(newQuery)
+  }, [selectedFilters])
 
   // Toggle filter dropdowns on/off
   // When one filter dropdown is clicked, toggle off other dropdowns
@@ -120,9 +106,9 @@ export default function IndexPage() {
             </button>
             {dropdownStates.form && (
               <div className='dropdown'>
-                <span className='dropdown-link' onClick={() => addQuery('form=lotion')}>Lotion</span>
-                <span className='dropdown-link' onClick={() => addQuery('form=spray')}>Spray</span>
-                <span className='dropdown-link' onClick={() => addQuery('form=stick')}>Stick</span>
+                <span className='dropdown-link' onClick={() => addFilter('form', 'lotion')}>Lotion</span>
+                <span className='dropdown-link' onClick={() => addFilter('form', 'spray')}>Spray</span>
+                <span className='dropdown-link' onClick={() => addFilter('form', 'stick')}>Stick</span>
               </div>
             )}
           </div>
@@ -132,9 +118,9 @@ export default function IndexPage() {
             </button>
             {dropdownStates.type && (
               <div className='dropdown'>
-                <span className='dropdown-link' onClick={() => addQuery('type=chemical')}>Chemical</span>
-                <span className='dropdown-link' onClick={() => addQuery('type=physical')}>Physical</span>
-                <span className='dropdown-link' onClick={() => addQuery('type=hybrid')}>Hybrid</span>
+                <span className='dropdown-link' onClick={() => addFilter('type', 'chemical')}>Chemical</span>
+                <span className='dropdown-link' onClick={() => addFilter('type', 'physical')}>Physical</span>
+                <span className='dropdown-link' onClick={() => addFilter('type', 'hybrid')}>Hybrid</span>
               </div>
             )}
           </div>
