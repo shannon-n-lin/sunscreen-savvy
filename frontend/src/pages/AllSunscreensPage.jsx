@@ -41,10 +41,10 @@ export default function IndexPage() {
 
   // Add new selected filter to state
   const addFilter = (filter, value) => {
-    if (filter === 'spf') {
+    if (filter === 'spf' || 'price') {
       setSelectedFilters((prevState) => ({
         ...prevState,
-        [filter]: [value]
+        [filter]: value
       }))
     } else {
       setSelectedFilters((prevState) => ({
@@ -142,10 +142,10 @@ export default function IndexPage() {
             </button>
             {dropdownStates.spf && (
               <div className='dropdown'>
-                <span className='dropdown-link' onClick={() => addFilter('spf', 15)}>15+</span>
-                <span className='dropdown-link' onClick={() => addFilter('spf', 30)}>30+</span>
-                <span className='dropdown-link' onClick={() => addFilter('spf', 50)}>50+</span>
-                <span className='dropdown-link' onClick={() => addFilter('spf', 70)}>70+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', [15])}>15+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', [30])}>30+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', [50])}>50+</span>
+                <span className='dropdown-link' onClick={() => addFilter('spf', [70])}>70+</span>
               </div>
             )}
           </div>
@@ -155,11 +155,11 @@ export default function IndexPage() {
             </button>
             {dropdownStates.price && (
               <div className='dropdown'>
-                <span className='dropdown-link' onClick={() => addFilter('price', 5)}>$</span>
-                <span className='dropdown-link' onClick={() => addFilter('price', 10)}>$$</span>
-                <span className='dropdown-link' onClick={() => addFilter('price', 15)}>$$$</span>
-                <span className='dropdown-link' onClick={() => addFilter('price', 20)}>$$$$</span>
-                <span className='dropdown-link' onClick={() => addFilter('price', 25)}>$$$$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', [0,5])}>$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', [5,10])}>$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', [10,15])}>$$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', [15,25])}>$$$$</span>
+                <span className='dropdown-link' onClick={() => addFilter('price', [25,10000])}>$$$$$</span>
               </div>
             )}
           </div>

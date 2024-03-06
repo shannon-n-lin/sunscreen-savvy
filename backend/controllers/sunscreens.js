@@ -85,6 +85,10 @@ const getAllSunscreens = async (req, res) => {
     if (spf) {
       filters.spf = {$gte: parseInt(spf)}
     }
+    if (price) {
+      const priceValues = price.split(',')
+      filters.pricePerOz = { $gte: parseInt(priceValues[0]), $lte: parseInt(priceValues[1]) } 
+    }
     console.log(filters)
     const sunscreens = await Sunscreen.find(filters)
     return res.json(sunscreens)
