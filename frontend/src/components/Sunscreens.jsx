@@ -1,12 +1,11 @@
-import { useState, useEffect, useContext, useRef } from 'react'
-import UserContext from '../contexts/UserContext'
+import { useState, useEffect, useRef } from 'react'
 import SunscreenCard from '../components/SunscreenCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function IndexPage() {
+export default function Sunscreens() {
   const [sunscreens, setSunscreens] = useState([])
   const [query, setQuery] = useState('')
   const [dropdownStates, setDropdownStates] = useState({
@@ -22,7 +21,6 @@ export default function IndexPage() {
     price: []
   })
 
-  const user = useContext(UserContext)
   const host = 'http://localhost:2003'
   const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
   const xIcon = <FontAwesomeIcon icon={faXmark} size="xs" />
@@ -37,7 +35,6 @@ export default function IndexPage() {
   // Get list of sunscreens from backend API 
   const getSunscreens = async () => {
     const res = await fetch(host + '/sunscreens' + query)
-    // const res = await fetch(host + '/sunscreens' + '?spf=50')
     const data = await res.json()
     setSunscreens(data)
   }
@@ -110,24 +107,24 @@ export default function IndexPage() {
   }
   
   // Close filter dropdowns when user clicks on page
-  // useEffect(() => {
-  //   const handleOutsideClick = (event) => {
-  //     const isDropdownClick = Object.values(dropdownRefs)
-  //       .some(ref => ref.current && ref.current.contains(event.target))
-  //     if (!isDropdownClick) {
-  //       setDropdownStates((prevState) => ({
-  //         form: false,
-  //         type: false,
-  //         spf: false,
-  //         price: false
-  //       }))
-  //     }
-  //   }
-  //   document.body.addEventListener('click', handleOutsideClick)
-  //   return () => {
-  //     document.body.removeEventListener('click', handleOutsideClick)
-  //   }
-  // }, [dropdownRefs])
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      const isDropdownClick = Object.values(dropdownRefs)
+        .some(ref => ref.current && ref.current.contains(event.target))
+      if (!isDropdownClick) {
+        setDropdownStates((prevState) => ({
+          form: false,
+          type: false,
+          spf: false,
+          price: false
+        }))
+      }
+    }
+    document.body.addEventListener('click', handleOutsideClick)
+    return () => {
+      document.body.removeEventListener('click', handleOutsideClick)
+    }
+  }, [dropdownRefs])
 
   return (
     <>

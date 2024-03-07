@@ -1,82 +1,27 @@
-import { useState, useEffect, useContext, useRef } from 'react'
+import { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
-import Sunscreens from '../components/Sunscreens'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import SunscreenCard from '../components/SunscreenCard'
 
-export default function IndexPage( handleLogout ) {
+export default function IndexPage({ handleLogout }) {
   const [sunscreens, setSunscreens] = useState([])
-  const [dropdownStates, setDropdownStates] = useState({
-    type: false,
-    form: false,
-    spf: false,
-    price: false
-  })
-
-    console.log(typeof handleLogout)
-
-
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
-  const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
+  // let sunscreens = ''
 
-  const dropdownRefs = {
-    form: useRef(null),
-    type: useRef(null),
-    spf: useRef(null),
-    price: useRef(null)
-  }
+  console.log(typeof handleLogout)
 
-  // Set list of sunscreens  
-  useEffect(() => {
-    const getSunscreens = async () => {
-      const sunscreens = await fetchSunscreens()
-      setSunscreens(sunscreens)
-    }
-    getSunscreens()
-  }, []) 
-  
-  // Get list of sunscreens from backend API
-  const fetchSunscreens = async () => {
+  // Get list of sunscreens from backend API 
+  const getSunscreens = async () => {
     const res = await fetch(host + '/sunscreens')
     const data = await res.json()
-    return data
+    setSunscreens(data)
   }
-
-  // Toggle filter dropdowns on/off
-  // When one filter dropdown is clicked, toggle off other dropdowns
-  const toggleDropdown = (dropdownId) => {
-    setDropdownStates((prevState) => ({
-      type: dropdownId === 'type' ? !prevState.type : false,
-      form: dropdownId === 'form' ? !prevState.form : false,
-      spf: dropdownId === 'spf' ? !prevState.spf : false,
-      price: dropdownId === 'price' ? !prevState.price : false,
-    }))
-  }
-  
-  // Close filter dropdowns when user clicks on page
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      const isDropdownClick = Object.values(dropdownRefs)
-        .some(ref => ref.current && ref.current.contains(event.target))
-      if (!isDropdownClick) {
-        setDropdownStates((prevState) => ({
-          form: false,
-          type: false,
-          spf: false,
-          price: false
-        }))
-      }
-    }
-
-    document.body.addEventListener('click', handleOutsideClick)
-    return () => {
-      document.body.removeEventListener('click', handleOutsideClick)
-    }
-  }, [dropdownRefs])
+  getSunscreens()
+  console.log(sunscreens)
 
   return (
     <>
@@ -85,26 +30,42 @@ export default function IndexPage( handleLogout ) {
       <Hero />
 
       <div> 
-        {user && <h2 className='h2 text-center mt-16'>Welcome, {user}!</h2>}
+        {user && <h2 className='text-center mt-16'>Welcome, {user}!</h2>}
       </div>
 
       <div className='max-w-[1240px] grid grid-flow-col gap-12 justify-center mx-auto my-20'>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient1.png")] bg-cover bg-bottom 
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Chemical Sunscreens</h2></a>
+          <a href='/'><h2 className='text-center mx-8 uppercase'>Chemical Sunscreens</h2></a>
         </div>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover  
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Mineral Sunscreens</h2></a>
+          <a href='/'><h2 className='text-center mx-8 uppercase'>Mineral Sunscreens</h2></a>
         </div>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover bg-top
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='h2 text-center mx-8 uppercase'>Budget Sunscreens</h2></a>
+          <a href='/'><h2 className='text-center mx-8 uppercase'>Budget Sunscreens</h2></a>
         </div>
       </div>
 
-      <div>
-        <Sunscreens />
+      <div className='max-w-[1240px] mx-auto'>
+        <h2 className='mt-10 mb-8 text-left'>Featured Sunscreens</h2>
+        
+        {/* Pass in list of sunscreens to render SunscreenCard components */}
+        <div className='max-w-[1240px] grid grid-cols-auto gap-6 mx-auto'>
+          {sunscreens .slice(-4).map(sunscreen => (
+            <SunscreenCard 
+              key={sunscreen._id}
+              sunscreen={sunscreen} 
+            />
+          ))}
+        </div>
+
+        <div className='max-w-[1240px] mt-8 mb-10 flex flex-row justify-center'>
+          <Link to='/all-sunscreens'>          
+            <button className='btn-primary no-underline'>View All</button>
+          </Link>
+        </div>
       </div>
 
       <Footer />

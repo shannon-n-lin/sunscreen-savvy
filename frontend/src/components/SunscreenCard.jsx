@@ -8,12 +8,6 @@ export default function Sunscreen({ sunscreen }) {
   
   return (
     <div className='h-72 flex flex-row border-[1px] border-lt-gray rounded-xl shadow-md bg-white'>
-      {/* <div className='w-5/12 m-5'>
-        <img className='w-full h-full object-cover border border-lt-blue rounded-xl' 
-              src={sunscreen.image} 
-              alt={`Packaging of ${sunscreen.name}`}
-        />
-      </div> */}
       <div className='w-5/12 mt-4'>
         <img className='w-full h-full object-contain' 
               src={sunscreen.image} 
