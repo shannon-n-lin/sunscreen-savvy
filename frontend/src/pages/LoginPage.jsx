@@ -15,7 +15,7 @@ export default function LoginPage() {
   async function handleLogin(e) {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:2003/login', {
+      const res = await axios.post(`${import.meta.env.VITE_HOST}/login`, {
         email: email,
         password: password,
       }, {
@@ -56,7 +56,6 @@ export default function LoginPage() {
           <Link to='/signup'>Sign up for an account</Link>
         </div>
       </form>
-
     </div>
   )
 }

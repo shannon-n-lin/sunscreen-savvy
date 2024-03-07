@@ -5,6 +5,7 @@ const homeController = require('../controllers/home')
 const authController = require('../controllers/auth')
 const profileController = require('../controllers/profile')
 const sunscreensController = require('../controllers/sunscreens')
+const searchController = require('../controllers/search')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 
@@ -26,5 +27,8 @@ router.post('/addSunscreen', upload.single('file'), sunscreensController.postAdd
 
 router.get('/sunscreen/:id', sunscreensController.getSunscreen)
 router.get('/sunscreens', sunscreensController.getAllSunscreens)
+
+router.get('/search', searchController.searchSunscreens)
+router.get('/search/:id', searchController.getSearchResults)
 
 module.exports = router

@@ -15,6 +15,12 @@
   h1 {
     @apply text-4xl font-semibold
   }
+  h2 {
+    @apply text-2xl font-semibold
+  }
+  h3 {
+    @apply font-bold uppercase
+  }
   a {
     @apply underline decoration-med-gray underline-offset-4 hover:font-semibold hover:decoration-lt-orange hover:decoration-2;
   }
@@ -28,15 +34,30 @@
     @apply mx-auto px-4 py-2 rounded uppercase font-bold;
   }
   button.btn-primary {
-    @apply bg-lt-orange hover:bg-yellow;
+    @apply border border-yellow bg-yellow hover:bg-lt-blue hover:border-lt-blue;
   }
   button.btn-secondary {
-    @apply border border-med-gray bg-transparent hover:bg-lt-blue;
+    @apply border border-med-gray bg-off-white hover:bg-lt-blue;
+  }
+  button.btn-dropdown {
+    @apply  w-28 border border-med-gray bg-white
+            text-left; 
+  }
+  button.btn-remove-filter {
+    @apply  border border-med-gray bg-lt-blue hover:bg-off-white rounded-full font-semibold text-sm
   }
   input[type="text"],input[type="password"],input[type="email"] {
-    @apply w-full border border-lt-gray mt-2 mb-6 py-2 px-3 rounded;
+    @apply w-full border border-lt-gray rounded mt-2 mb-6 py-2 px-3;
   }
   .error {
-    @apply italic text-sm text-dark-orange flex -mt-3 mb-6;
+    @apply flex -mt-3 mb-6
+           italic text-sm text-dark-orange;
+  }
+  .dropdown {
+    @apply absolute flex flex-col w-28
+           border border-med-gray rounded bg-white;
+  }
+  .dropdown-link {
+    @apply p-4 hover:bg-lt-blue no-underline ;
   }
 }

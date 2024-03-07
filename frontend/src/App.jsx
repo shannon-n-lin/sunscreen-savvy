@@ -6,6 +6,11 @@ import Layout from './components/Layout'
 import IndexPage from './pages/IndexPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import AboutPage from './pages/AboutPage'
+import AllSunscreens from './pages/ProductListPages/AllSunscreens'
+import ChemicalSunscreens from './pages/ProductListPages/ChemicalSunscreens'
+import MineralSunscreens from './pages/ProductListPages/MineralSunscreens'
+import BudgetSunscreens from './pages/ProductListPages/BudgetSunscreens'
 
 
 const App = () => {
@@ -13,20 +18,20 @@ const App = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const res = await axios.get('http://localhost:2003/user', {
+      const res = await axios.get(`${import.meta.env.VITE_HOST}/user`, {
         withCredentials:true
       })
       setUser(res.data.username)
       console.log(res)
     }
     checkAuth()
-  }, [user]) 
+  }, []) 
 
   async function handleLogout(e) {
     try {
-      const res = await axios.post('http://localhost:2003/logout', {}, {withCredentials: true})
+      const res = await axios.post(`${import.meta.env.VITE_HOST}/logout`, {}, {withCredentials: true})
         setUser(res.data.user)
-        console.log(user)
+        console.log(res.data)
     } catch (err) {
       console.log(err)
     }
@@ -36,11 +41,19 @@ const App = () => {
     <>
       <UserContext.Provider value={user}>
         <Routes>
-          <Route path='/' element={<Layout handleLogout={handleLogout}/>}> {/* use Layout component on all pages */}
-            <Route index element={<IndexPage />} />
+
+          {/* Apply layout component to all pages */}
+          <Route element={<Layout handleLogout={handleLogout}/>}> 
+            <Route path='/' element={<IndexPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
+            <Route path='/about' element={<AboutPage />} />
+            <Route path='/all-sunscreens' element={<AllSunscreens />} />
+            <Route path='/chemical-sunscreens' element={<ChemicalSunscreens />} />
+            <Route path='/mineral-sunscreens' element={<MineralSunscreens />} />
+            <Route path='/budget-sunscreens' element={<BudgetSunscreens />} />
           </Route>
+          
         </Routes>
       </UserContext.Provider>
     </>

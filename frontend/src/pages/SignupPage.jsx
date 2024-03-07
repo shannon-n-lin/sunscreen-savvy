@@ -21,7 +21,7 @@ export default function SignupPage() {
   async function handleSignup(e) {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:2003/signup', {
+      const res = await axios.post(`${import.meta.env.VITE_HOST}/signup`, {
         username,
         email,
         password,
@@ -46,7 +46,7 @@ export default function SignupPage() {
 
   async function handleLogin(e) {
     try {
-      const res = await axios.post('http://localhost:2003/login', {
+      const res = await axios.post(`${import.meta.env.VITE_HOST}/login`, {
         email: email,
         password: password,
       }, {

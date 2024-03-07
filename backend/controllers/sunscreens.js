@@ -64,7 +64,33 @@ const getSunscreen = async (req, res) => {
 
 const getAllSunscreens = async (req, res) => {
   try {
-    const sunscreens = await Sunscreen.find({})
+    const { type, form, spf, price } = req.query
+    let filters = {}
+    if (type) {
+      const typeValues = type.split(',')
+      if (typeValues.length === 1) {
+        filters.type = typeValues[0]
+      } else {
+        filters.type = {$in: typeValues}
+      }
+    }
+    if (form) {
+      const formValues = form.split(',')
+      if (formValues.length === 1) {
+        filters.form = formValues[0]
+      } else {
+        filters.form = {$in: formValues}
+      }
+    }
+    if (spf) {
+      filters.spf = {$gte: parseInt(spf)}
+    }
+    if (price) {
+      const priceValues = price.split(',')
+      filters.pricePerOz = { $gte: parseInt(priceValues[0]), $lte: parseInt(priceValues[1]) } 
+    }
+    console.log(filters)
+    const sunscreens = await Sunscreen.find(filters)
     return res.json(sunscreens)
   } catch (err) {
     console.log(err)
