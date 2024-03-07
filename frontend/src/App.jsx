@@ -7,6 +7,7 @@ import IndexPage from './pages/IndexPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import AllSunscreensPage from './pages/AllSunscreensPage'
+import AboutPage from './pages/AboutPage'
 
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
       console.log(res)
     }
     checkAuth()
-  }, [user]) 
+  }, []) 
 
   async function handleLogout(e) {
     try {
@@ -33,19 +34,22 @@ const App = () => {
     }
   }
 
-    console.log(typeof handleLogout)
-
+  console.log(typeof handleLogout)
 
   return (
     <>
       <UserContext.Provider value={user}>
         <Routes>
           <Route index element={<IndexPage headerColor="white" handleLogout={handleLogout}/>} />
-          {/* use Layout component on all pages */}
-          <Route path='/' element={<Layout handleLogout={handleLogout}/>}> 
-            <Route path='/login' element={<LoginPage headerColor="black"/>} />
+          
+          {/* Use Layout component on all pages */}
+          <Route element={<Layout handleLogout={handleLogout}/>}> 
+            <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/all-sunscreens' element={<AllSunscreensPage />} />
+            <Route path='/about' element={<AboutPage />} />
+            {/* Wildcard route */}
+            {/* <Route path='*' element={<IndexPage />} /> */}
           </Route>
         </Routes>
       </UserContext.Provider>

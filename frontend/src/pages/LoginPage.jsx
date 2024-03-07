@@ -56,7 +56,6 @@ export default function LoginPage() {
           <Link to='/signup'>Sign up for an account</Link>
         </div>
       </form>
-
     </div>
   )
 }

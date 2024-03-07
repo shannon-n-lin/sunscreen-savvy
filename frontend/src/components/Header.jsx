@@ -31,16 +31,24 @@ export default function Header({ handleLogout, textColor='black' }) {
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold gap-3'>
           <li className={`p-3 whitespace-nowrap text-${textColor}`}>
-            <Link to='/all-sunscreens'>All Sunscreens</Link>
+            <Link to='/all-sunscreens' className='no-underline'>
+              All Sunscreens
+            </Link>
           </li>
           <li className={`p-3 whitespace-nowrap text-${textColor}`}>
-            <Link to='/sunscreens'>About</Link>
+            <Link to='/about' className='no-underline'>
+              About
+            </Link>
           </li>
           {!user && <li className='pl-3 whitespace-nowrap'>
-            <Link to='/login'><button className='btn-secondary'>Log In</button></Link>
+            <Link to='/login'>
+              <button className='btn-secondary'>Log In</button>
+            </Link>
           </li>}
           {!user && <li className='pl-3 whitespace-nowrap'>
-            <Link to='/signup'><button className='btn-primary'>Sign Up</button></Link>
+            <Link to='/signup'>
+              <button className='btn-primary'>Sign Up</button>
+            </Link>
           </li>}
           {user && <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
             <button className='btn-secondary'>Log Out</button>
@@ -71,9 +79,17 @@ export default function Header({ handleLogout, textColor='black' }) {
               <button onClick={handleLogout} className='btn-secondary'>Log Out</button>
               {<Navigate to='/' />}
             </li>}
-            
-            <li onClick={handleMobile} className='p-4 whitespace-nowrap'>All Sunscreens</li>
-            <li onClick={handleMobile} className='p-4 whitespace-nowrap'>Latest Reviews</li>
+
+            <li onClick={handleMobile} className='p-4 whitespace-nowrap'>            
+              <Link to='/all-sunscreens' className='no-underline'>
+                All Sunscreens
+              </Link>
+            </li>
+            <li onClick={handleMobile} className='p-4 whitespace-nowrap'>            
+              <Link to='/about' className='no-underline'>
+                About
+              </Link>
+            </li>
           </ul>
           
         </div>
