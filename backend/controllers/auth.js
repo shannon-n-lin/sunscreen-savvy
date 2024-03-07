@@ -106,7 +106,7 @@ const logout = (req, res, next) => {
     if (err) return next(err);
   })
   res.clearCookie('connect.sid');
-  res.send({isAuth: req.isAuthenticated(), user: req.user})
+  res.send('Successfully logged out')
 }
 
 

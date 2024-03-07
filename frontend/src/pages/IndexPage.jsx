@@ -1,12 +1,10 @@
 import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
-import Header from '../components/Header'
 import Hero from '../components/Hero'
-import Footer from '../components/Footer'
 import SunscreenCard from '../components/SunscreenCard'
 
-export default function IndexPage({ handleLogout }) {
+export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
@@ -25,7 +23,6 @@ export default function IndexPage({ handleLogout }) {
   return (
     <>
     <div className='flex flex-col min-h-screen'>
-      <Header handleLogout={handleLogout} textColor='white'/>
       <Hero />
 
       <div> 
@@ -79,7 +76,6 @@ export default function IndexPage({ handleLogout }) {
         </div>
       </div>
 
-      <Footer />
     </div>
     </>
   )

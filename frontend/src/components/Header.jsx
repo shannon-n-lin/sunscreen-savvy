@@ -1,17 +1,15 @@
-import { useState, useContext, useCallback } from 'react'
+import { useState, useContext } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
-import savvyLogoWhite from '../assets/savvy-logo-white.svg'
 import savvyLogoBlack from '../assets/savvy-logo-black.png'
 import { FiX, FiMenu } from 'react-icons/fi'
 
-export default function Header({ handleLogout, textColor='black' }) {
+export default function Header({ handleLogout }) {
   const [ mobile, setMobile ] = useState(false)
   const user = useContext(UserContext)
-  
-  const handleMobile = useCallback(() => {
+  const handleMobile = () => {
     setMobile(!mobile)
-  }, [])
+  }
 
   console.log('header')
 
@@ -23,19 +21,19 @@ export default function Header({ handleLogout, textColor='black' }) {
         <Link to='/'>
           <img 
             className='w-[160px]' 
-            src={textColor === 'white' ? savvyLogoWhite : savvyLogoBlack} 
+            src={savvyLogoBlack} 
             alt='Savvy'
           />
         </Link>
-                
+
         {/* Desktop nav menu */}
         <ul className='hidden md:flex items-center uppercase text-sm font-bold gap-3'>
-          <li className={`p-3 whitespace-nowrap text-${textColor}`}>
+          <li className={'p-3 whitespace-nowrap'}>
             <Link to='/all-sunscreens' className='no-underline'>
               All Sunscreens
             </Link>
           </li>
-          <li className={`p-3 whitespace-nowrap text-${textColor}`}>
+          <li className={'p-3 whitespace-nowrap'}>
             <Link to='/about' className='no-underline'>
               About
             </Link>
@@ -52,6 +50,8 @@ export default function Header({ handleLogout, textColor='black' }) {
           </li>}
           {user && <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
             <button className='btn-secondary'>Log Out</button>
+            {/* TODO: Fix issue with redirecting every route to index
+            {<Navigate to='/' />} */}
           </li>}
         </ul>
         
@@ -77,7 +77,8 @@ export default function Header({ handleLogout, textColor='black' }) {
             </li>}
             {user && <li onClick={handleMobile} className='pt-6 pb-6 pr-4 whitespace-nowrap'>
               <button onClick={handleLogout} className='btn-secondary'>Log Out</button>
-              {<Navigate to='/' />}
+              {/* TODO: Fix issue with redirecting every route to index
+              {<Navigate to='/' />} */}
             </li>}
 
             <li onClick={handleMobile} className='p-4 whitespace-nowrap'>            
