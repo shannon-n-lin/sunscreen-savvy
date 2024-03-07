@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import Header from '../components/Header'
@@ -17,7 +17,10 @@ export default function IndexPage({ handleLogout }) {
     const data = await res.json()
     setSunscreens(data)
   }
-  getSunscreens()
+
+  useEffect(() => {
+    getSunscreens()
+  }, [])
 
   return (
     <>

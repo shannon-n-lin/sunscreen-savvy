@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import UserContext from '../contexts/UserContext'
 import savvyLogoWhite from '../assets/savvy-logo-white.svg'
@@ -9,11 +9,11 @@ export default function Header({ handleLogout, textColor='black' }) {
   const [ mobile, setMobile ] = useState(false)
   const user = useContext(UserContext)
   
-  const handleMobile = () => {
+  const handleMobile = useCallback(() => {
     setMobile(!mobile)
-  }
+  }, [])
 
-  console.log(typeof handleLogout)
+  console.log('header')
 
   return (
     <div className='w-full z-10'>
