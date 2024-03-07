@@ -33,6 +33,9 @@ const App = () => {
     }
   }
 
+    console.log(typeof handleLogout)
+
+
   return (
     <>
       <UserContext.Provider value={user}>
@@ -40,7 +43,6 @@ const App = () => {
           <Route index element={<IndexPage headerColor="white" handleLogout={handleLogout}/>} />
           {/* use Layout component on all pages */}
           <Route path='/' element={<Layout handleLogout={handleLogout}/>}> 
-            {/* <Route index element={<IndexPage headerColor="white"/>} /> */}
             <Route path='/login' element={<LoginPage headerColor="black"/>} />
             <Route path='/signup' element={<SignupPage />} />
             <Route path='/all-sunscreens' element={<AllSunscreensPage />} />

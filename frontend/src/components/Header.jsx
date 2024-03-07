@@ -13,6 +13,8 @@ export default function Header({ handleLogout, textColor='black' }) {
     setMobile(!mobile)
   }
 
+  console.log(typeof handleLogout)
+
   return (
     <div className='w-full z-10'>
       <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto text-black'>
