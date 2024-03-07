@@ -3,6 +3,8 @@ import UserContext from '../contexts/UserContext'
 import Sunscreens from '../components/Sunscreens'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
@@ -23,6 +25,7 @@ export default function IndexPage() {
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
   const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
+  const xIcon = <FontAwesomeIcon icon={faXmark} size="xs" />
 
   const dropdownRefs = {
     form: useRef(null),
@@ -52,6 +55,12 @@ export default function IndexPage() {
         [filter]: [...prevState[filter], value]
       }))
     }
+    setDropdownStates((prevState) => ({
+      form: false,
+      type: false,
+      spf: false,
+      price: false
+    }))
   }
 
   // Remove filter from state
@@ -124,7 +133,7 @@ export default function IndexPage() {
     <>
       <h1 className='h1 text-center my-16'>All Sunscreens</h1>
       <div>
-        <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-10 gap-4'>
+        <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-4 gap-4'>
           <h3 className='h3 my-auto'>Filter by</h3>
           
           {/* FORM */}
@@ -188,28 +197,60 @@ export default function IndexPage() {
         </div>
 
         {/* SELECTED FILTERS */}
-        <div>
-          <button className='mr-6' onClick={() => removeFilter('form', 'lotion')}>Lotion x</button>
-          <button className='mr-6' onClick={() => removeFilter('form', 'spray')}>Spray x</button>
-          <button className='mr-6' onClick={() => removeFilter('form', 'stick')}>Stick x</button>
-        </div>
-        <div>
-          <button className='mr-6' onClick={() => removeFilter('type', 'chemical')}>Chemical x</button>
-          <button className='mr-6' onClick={() => removeFilter('type', 'physical')}>Mineral x</button>
-          <button className='mr-6' onClick={() => removeFilter('type', 'hybrid')}>Hybrid x</button>
-        </div>
-        <div>
-          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 15+ x</button>
-          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 30+ x</button>
-          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 50+ x</button>
-          <button className='mr-6' onClick={() => removeFilter('spf')}>SPF 70+ x</button>
-        </div>
-        <div>
-          <button className='mr-6' onClick={() => removeFilter('price')}>$ x</button>
-          <button className='mr-6' onClick={() => removeFilter('price')}>$$ x</button>
-          <button className='mr-6' onClick={() => removeFilter('price')}>$$$ x</button>
-          <button className='mr-6' onClick={() => removeFilter('price')}>$$$$ x</button>
-          <button className='mr-6' onClick={() => removeFilter('price')}>$$$$$ x</button>
+        <div className='max-w-[1240px] mx-auto mb-8 flex flex-row gap-2'>
+          <div className='flex flex-row gap-2'>
+            {selectedFilters.form.includes('lotion') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('form', 'lotion')}>{xIcon} Lotion</button>
+            }
+            {selectedFilters.form.includes('spray') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('form', 'spray')}>{xIcon} Spray</button>
+            }
+            {selectedFilters.form.includes('stick') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('form', 'stick')}>{xIcon} Stick</button>
+            }   
+          </div>
+          <div className='flex flex-row gap-2'>
+            {selectedFilters.type.includes('chemical') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('type', 'chemical')}>{xIcon} Chemical</button>
+            }
+            {selectedFilters.type.includes('physical') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('type', 'physical')}>{xIcon} Mineral</button>
+            }
+            {selectedFilters.type.includes('hybrid') && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('type', 'hybrid')}>{xIcon} Hybrid</button>
+            }
+          </div>
+          <div className='flex flex-row gap-2'>
+            {selectedFilters.spf.includes(15) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('spf')}>{xIcon} SPF 15+</button>
+            }
+            {selectedFilters.spf.includes(30) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('spf')}>{xIcon} SPF 30+</button>
+            }
+            {selectedFilters.spf.includes(50) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('spf')}>{xIcon} SPF 50+</button>
+            }
+            {selectedFilters.spf.includes(70) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('spf')}>{xIcon} SPF 70+</button>
+            }
+          </div>
+          <div className='flex flex-row gap-2'>
+            {selectedFilters.price.length > 0 && selectedFilters.price.every(p => p === 0 || p === 5) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('price')}>{xIcon} $</button>
+            }
+            {selectedFilters.price.length > 0 && selectedFilters.price.every(p => p === 5 || p === 10) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('price')}>{xIcon} $$</button>
+            }
+            {selectedFilters.price.length > 0 && selectedFilters.price.every(p => p === 10 || p === 15) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('price')}>{xIcon} $$$</button>
+            }
+            {selectedFilters.price.length > 0 && selectedFilters.price.every(p => p === 15 || p === 25) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('price')}>{xIcon} $$$$</button>
+            }
+            {selectedFilters.price.length > 0 && selectedFilters.price.every(p => p === 25 || p === 10000) && 
+              <button className='btn-remove-filter' onClick={() => removeFilter('price')}>{xIcon} $$$$$</button>
+            }
+          </div>
         </div>
 
         {/* Pass in list to Sunscreens component, which loads individual Sunscreen components */}
