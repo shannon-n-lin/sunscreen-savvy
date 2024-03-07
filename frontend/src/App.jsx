@@ -6,8 +6,11 @@ import Layout from './components/Layout'
 import IndexPage from './pages/IndexPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
-import AllSunscreensPage from './pages/AllSunscreensPage'
 import AboutPage from './pages/AboutPage'
+import AllSunscreens from './pages/ProductListPages/AllSunscreens'
+import ChemicalSunscreens from './pages/ProductListPages/ChemicalSunscreens'
+import MineralSunscreens from './pages/ProductListPages/MineralSunscreens'
+import BudgetSunscreens from './pages/ProductListPages/BudgetSunscreens'
 
 
 const App = () => {
@@ -46,8 +49,11 @@ const App = () => {
           <Route element={<Layout handleLogout={handleLogout}/>}> 
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
-            <Route path='/all-sunscreens' element={<AllSunscreensPage />} />
             <Route path='/about' element={<AboutPage />} />
+            <Route path='/all-sunscreens' element={<AllSunscreens />} />
+            <Route path='/chemical-sunscreens' element={<ChemicalSunscreens />} />
+            <Route path='/mineral-sunscreens' element={<MineralSunscreens />} />
+            <Route path='/budget-sunscreens' element={<BudgetSunscreens />} />
             {/* Wildcard route */}
             {/* <Route path='*' element={<IndexPage />} /> */}
           </Route>

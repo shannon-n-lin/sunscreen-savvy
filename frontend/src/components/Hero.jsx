@@ -10,9 +10,9 @@ export default function Hero() {
         <p className='text-lg text-white md:text-2xl/snug max-w-[400px] md:max-w-[530px] mx-auto'>
           Save time, money, and waste by discovering sunscreens that match your needs
         </p>
-        <div className='mt-8'>
+        {/* <div className='mt-8'>
           <button className='bg-lt-blue hover:bg-off-white border border-[#797a7a] mx-auto py-2 px-4 rounded uppercase font-bold'>Get started</button>
-        </div>
+        </div> */}
       </div>
     </div>
   )

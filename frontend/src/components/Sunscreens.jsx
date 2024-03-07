@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-
-export default function Sunscreens() {
+export default function Sunscreens({ presetQuery='' }) {
   const [sunscreens, setSunscreens] = useState([])
   const [query, setQuery] = useState('')
   const [dropdownStates, setDropdownStates] = useState({
@@ -93,7 +92,13 @@ export default function Sunscreens() {
   useEffect(() => {
     console.log(query)
     getSunscreens()
-  }, [query]) 
+  }, [query])
+
+  // Use presetQuery for initial API call
+  useEffect(() => {
+    setQuery(presetQuery)
+  }, [presetQuery]) 
+
 
   // Toggle filter dropdowns on/off
   // When one filter dropdown is clicked, toggle off other dropdowns

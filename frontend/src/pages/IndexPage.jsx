@@ -10,9 +10,6 @@ export default function IndexPage({ handleLogout }) {
   const [sunscreens, setSunscreens] = useState([])
   const user = useContext(UserContext)
   const host = 'http://localhost:2003'
-  // let sunscreens = ''
-
-  console.log(typeof handleLogout)
 
   // Get list of sunscreens from backend API 
   const getSunscreens = async () => {
@@ -21,7 +18,6 @@ export default function IndexPage({ handleLogout }) {
     setSunscreens(data)
   }
   getSunscreens()
-  console.log(sunscreens)
 
   return (
     <>
@@ -36,15 +32,27 @@ export default function IndexPage({ handleLogout }) {
       <div className='max-w-[1240px] grid grid-flow-col gap-12 justify-center mx-auto my-20'>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient1.png")] bg-cover bg-bottom 
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='text-center mx-8 uppercase'>Chemical Sunscreens</h2></a>
+          <Link to='/chemical-sunscreens'>
+            <h2 className='text-center mx-8 uppercase'>
+              Chemical Sunscreens
+            </h2>
+          </Link>
         </div>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover  
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='text-center mx-8 uppercase'>Mineral Sunscreens</h2></a>
+          <Link to='/mineral-sunscreens'>
+            <h2 className='text-center mx-8 uppercase'>
+              Mineral Sunscreens
+            </h2>
+          </Link>        
         </div>
         <div className='h-80 w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover bg-top
         flex justify-center items-center shadow-lg'>
-          <a href='/'><h2 className='text-center mx-8 uppercase'>Budget Sunscreens</h2></a>
+          <Link to='/budget-sunscreens'>
+            <h2 className='text-center mx-8 uppercase'>
+              Budget Sunscreens
+            </h2>
+          </Link>        
         </div>
       </div>
 
