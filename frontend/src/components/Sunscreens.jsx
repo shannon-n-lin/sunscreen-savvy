@@ -19,21 +19,18 @@ export default function Sunscreens({ presetQuery='' }) {
     spf: [],
     price: []
   })
-
-  const host = 'http://localhost:2003'
-  const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
-  const xIcon = <FontAwesomeIcon icon={faXmark} size="xs" />
-
   const dropdownRefs = {
     form: useRef(null),
     type: useRef(null),
     spf: useRef(null),
     price: useRef(null)
   }
+  const dropdownIcon = <FontAwesomeIcon icon={faAngleDown} />
+  const xIcon = <FontAwesomeIcon icon={faXmark} size="xs" />
 
   // Get list of sunscreens from backend API 
   const getSunscreens = async () => {
-    const res = await fetch(host + '/sunscreens' + query)
+    const res = await fetch(`${import.meta.env.VITE_HOST}/sunscreens` + query)
     const data = await res.json()
     setSunscreens(data)
   }

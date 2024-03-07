@@ -7,11 +7,10 @@ import SunscreenCard from '../components/SunscreenCard'
 export default function IndexPage() {
   const [sunscreens, setSunscreens] = useState([])
   const user = useContext(UserContext)
-  const host = 'http://localhost:2003'
 
   // Get list of sunscreens from backend API 
   const getSunscreens = async () => {
-    const res = await fetch(host + '/sunscreens')
+    const res = await fetch(`${import.meta.env.VITE_HOST}/sunscreens`)
     const data = await res.json()
     setSunscreens(data)
   }
