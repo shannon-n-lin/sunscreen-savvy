@@ -16,7 +16,7 @@ export default function Sunscreen({ sunscreen }) {
       </div>
       <div className='w-7/12 p-8'>
         <div className='uppercase tracking-wide text-sm font-semibold hover:underline'>{sunscreen.brand}</div>
-        <a href='#' className='mt-2 block text-xl/tight font-semibold hover:underline'>{sunscreen.name}</a>
+        <a href={sunscreen.url} target='_blank' className='mt-2 block text-xl/tight font-semibold hover:underline'>{sunscreen.name}</a>
         <ul className='mt-5'>
           <li className='mt-1'>
             <span className='font-bold'>FORM: </span>
