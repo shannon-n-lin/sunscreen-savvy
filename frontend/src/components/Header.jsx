@@ -15,7 +15,7 @@ export default function Header({ handleLogout }) {
 
   return (
     <div className='w-full z-10'>
-      <div className='flex justify-between items-center h-20 max-w-[1240px] mx-auto text-black'>
+      <div className='flex justify-between items-center h-20 max-w-[90vw] mx-auto text-black'>
         
         {/* Logo */}
         <Link to='/'>
@@ -48,7 +48,7 @@ export default function Header({ handleLogout }) {
               <button className='btn-primary'>Sign Up</button>
             </Link>
           </li>}
-          {user && <li onClick={handleLogout} className='p-3 whitespace-nowrap'>
+          {user && <li onClick={handleLogout} className='pl-3 whitespace-nowrap'>
             <button className='btn-secondary'>Log Out</button>
             {/* TODO: Fix issue with redirecting every route to index
             {<Navigate to='/' />} */}

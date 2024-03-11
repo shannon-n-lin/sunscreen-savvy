@@ -130,7 +130,8 @@ export default function Sunscreens({ presetQuery='' }) {
 
   return (
     <>
-      <div className='max-w-[1240px] grid grid-flow-col justify-start mx-auto mt-12 mb-4 gap-4'>
+      <div className='max-w-[90%] flex flex-row flex-wrap justify-start mx-auto mt-12 mb-4 gap-4'>
+      {/* <div className='max-w-[90%] grid grid-flow-col justify-start mx-auto mt-12 mb-4 gap-4'> */}
         <h3 className='h3 my-auto'>Filter by</h3>
         
         {/* FORM */}
@@ -194,7 +195,7 @@ export default function Sunscreens({ presetQuery='' }) {
       </div>
 
       {/* SELECTED FILTERS */}
-      <div className='max-w-[1240px] mx-auto mb-8 flex flex-row gap-2'>
+      <div className='max-w-[90%] mx-auto mb-8 flex flex-row flex-wrap gap-2'>
         <div className='flex flex-row gap-2'>
           {selectedFilters.form.includes('lotion') && 
             <button className='btn-remove-filter' onClick={() => removeFilter('form', 'lotion')}>{xIcon} Lotion</button>
@@ -251,7 +252,7 @@ export default function Sunscreens({ presetQuery='' }) {
       </div>
 
       {/* Pass in list of sunscreens to render SunscreenCard components */}
-      <div className='max-w-[1240px] grid grid-cols-auto gap-6 mx-auto'>
+      <div className='max-w-[90%] grid grid-cols-1 lg:grid-cols-2 gap-6 mx-auto'>
         {sunscreens.map(sunscreen => (
           <SunscreenCard 
             key={sunscreen._id}

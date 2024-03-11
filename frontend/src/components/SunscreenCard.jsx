@@ -7,9 +7,9 @@ export default function Sunscreen({ sunscreen }) {
                price < 25 ? '$$$$' : '$$$$$'
   
   return (
-    <div className='h-72 flex flex-row border-[1px] border-lt-gray rounded-xl shadow-md bg-white'>
+    <div className='h-fit sm:h-80 flex flex-row border-[1px] border-lt-gray rounded-xl shadow-md bg-white'>
       <div className='w-5/12 mt-4'>
-        <img className='w-full h-full object-contain' 
+        <img className='h-[95%] w-[95%] object-contain mx-auto' 
               src={sunscreen.image} 
               alt={`Packaging of ${sunscreen.name}`}
         />
