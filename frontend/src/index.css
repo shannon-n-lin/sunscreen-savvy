@@ -27,12 +27,13 @@
   label {
     @apply font-semibold;
   }
-}
-
-@layer components {
   button {
     @apply mx-auto px-4 py-2 rounded uppercase font-bold;
   }
+}
+
+@layer components {
+
   button.btn-primary {
     @apply border border-yellow bg-yellow hover:bg-lt-blue hover:border-lt-blue;
   }

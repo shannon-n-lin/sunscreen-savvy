@@ -27,6 +27,7 @@ export default function Header({ handleLogout }) {
         </Link>
 
         {/* Desktop nav menu */}
+        <nav>
         <ul className='hidden md:flex items-center uppercase text-sm font-bold gap-3'>
           <li className={'p-3 whitespace-nowrap'}>
             <Link to='/all-sunscreens' className='no-underline'>
@@ -54,6 +55,7 @@ export default function Header({ handleLogout }) {
             {<Navigate to='/' />} */}
           </li>}
         </ul>
+        </nav>
         
         {/* Icon to open mobile menu */}
         <div onClick={handleMobile} className='block md:hidden'>
@@ -68,6 +70,7 @@ export default function Header({ handleLogout }) {
             <FiX size={24} alt='close menu' />
           </div>
           
+          <nav>
           <ul className='uppercase text-right'>
             {!user && <li className='pt-8 pr-4 whitespace-nowrap'>
               <Link to='/login'><button onClick={handleMobile} className='btn-secondary'>Log In</button></Link>
@@ -92,6 +95,7 @@ export default function Header({ handleLogout }) {
               </Link>
             </li>
           </ul>
+          </nav>
           
         </div>
       </div>
