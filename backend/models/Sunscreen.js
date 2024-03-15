@@ -31,6 +31,9 @@ const SunscreenSchema = new mongoose.Schema({
   pricePerOz: {
     type: mongoose.Schema.Types.Decimal128,
   },
+  url: {
+    type: String,
+  },
   ingredients: {
     type: String,
   },

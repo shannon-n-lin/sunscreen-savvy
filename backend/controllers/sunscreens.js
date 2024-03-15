@@ -42,11 +42,14 @@ const postAddSunscreen = async (req, res) => {
       waterResistant: req.body.waterResistant,
       broadSpectrum: req.body.broadSpectrum,
       pricePerOz: req.body.pricePerOz,
+      // TODO: fix url field in mongodb schema
+      url: req.body.url,
       ingredients: req.body.ingredients,
       image: result.secure_url,
       cloudinaryId: result.public_id,
     })
     console.log('Sunscreen added')
+    console.log(`${req.body}`)
     res.redirect('addSunscreen')
   } catch (err) {
     console.log(err)
