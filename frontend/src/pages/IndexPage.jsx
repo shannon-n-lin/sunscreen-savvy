@@ -56,7 +56,6 @@ export default function IndexPage() {
       </div>
 
       <div className='max-w-[90%] mx-auto'>
-        <h2 className='mt-10 mb-8 text-left'>Featured</h2>
         
         {/* Pass in list of sunscreens to render SunscreenCard components */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mx-auto'>
