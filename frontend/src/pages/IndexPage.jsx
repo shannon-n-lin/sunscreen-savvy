@@ -28,7 +28,7 @@ export default function IndexPage() {
         {user && <h2 className='text-center mt-16'>Welcome, {user}!</h2>}
       </div>
 
-      <div className='max-w-[90%] grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center mx-auto mt-14 mb-8'>
+      <div className='max-w-[90%] grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center mx-auto my-14'>
         <div className='h-28 lg:w-72 rounded-md bg-gradient-to-l to-[#e9ba58] from-med-blue bg-cover bg-bottom 
         flex justify-center items-center shadow-lg'>
           <Link to='/chemical-sunscreens'>
@@ -56,6 +56,7 @@ export default function IndexPage() {
       </div>
 
       <div className='max-w-[90%] mx-auto'>
+        <h2 className='text-center mt-2 mb-4'>Featured</h2>
         
         {/* Pass in list of sunscreens to render SunscreenCard components */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mx-auto'>
