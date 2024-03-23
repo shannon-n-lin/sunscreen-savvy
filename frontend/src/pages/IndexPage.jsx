@@ -28,8 +28,8 @@ export default function IndexPage() {
         {user && <h2 className='text-center mt-16'>Welcome, {user}!</h2>}
       </div>
 
-      <div className='max-w-[90%] grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center mx-auto my-14'>
-        <div className='h-40 sm:h-60 md:h-80 lg:w-64 rounded-md bg-[url("src/assets/gradient1.png")] bg-cover bg-bottom 
+      <div className='max-w-[90%] grid grid-cols-1 sm:grid-cols-3 gap-4 justify-center mx-auto mt-14 mb-8'>
+        <div className='h-28 lg:w-72 rounded-md bg-gradient-to-l to-[#e9ba58] from-med-blue bg-cover bg-bottom 
         flex justify-center items-center shadow-lg'>
           <Link to='/chemical-sunscreens'>
             <h2 className='text-center mx-8 uppercase sm:text-xl md:text-2xl'>
@@ -37,7 +37,7 @@ export default function IndexPage() {
             </h2>
           </Link>
         </div>
-        <div className='h-40 sm:h-60 md:h-80 lg:w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover  
+        <div className='h-28 lg:w-72 rounded-md bg-gradient-to-tr to-[#e9ba58] from-med-blue bg-cover  
         flex justify-center items-center shadow-lg'>
           <Link to='/mineral-sunscreens'>
             <h2 className='text-center mx-8 uppercase sm:text-xl md:text-2xl'>
@@ -45,7 +45,7 @@ export default function IndexPage() {
             </h2>
           </Link>        
         </div>
-        <div className='h-40 sm:h-60 md:h-80 lg:w-64 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover bg-top
+        <div className='h-28 lg:w-72 rounded-md bg-[url("src/assets/gradient2.png")] bg-cover bg-top
         flex justify-center items-center shadow-lg'>
           <Link to='/budget-sunscreens'>
             <h2 className='text-center mx-8 uppercase sm:text-xl md:text-2xl'>
